@@ -1,0 +1,200 @@
+"use client";
+
+import { useState } from "react";
+import PageBanner from "@/components/marketing/PageBanner";
+import { ExternalLink, Send, ChevronDown } from "lucide-react";
+
+const FAQS = [
+  { q: "How do I register for a city?", a: "Click Register on our home page or any page to open the registration modal. Choose your city and preferred day, complete payment, and you're in." },
+  { q: "I forgot my portal password — what do I do?", a: "Go to the Sign In page and click 'Forgot password.' We'll email you a reset link." },
+  { q: "Can I transfer my registration to a different city?", a: "City transfers are handled case by case. Reach out via the contact form and we'll do our best to help." },
+  { q: "I submitted a score but it's not showing up — why?", a: "Scores show immediately as 'pending' in all four players' portals. They appear in the standings only once an admin approves them, which typically happens within 24–48 hours." },
+  { q: "How do refunds work?", a: "Refunds are available up to 7 days before the season starts. Contact us via the form below." },
+];
+
+export default function ContactPage() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [form, setForm] = useState({ first: "", last: "", email: "", subject: "", message: "" });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <>
+      <PageBanner
+        eyebrow="Get in touch"
+        headline={<>Let&rsquo;s <em className="serif-italic">talk tiles</em></>}
+        lead="Questions about registration, your city, or the league? We're happy to help."
+      />
+
+      {/* FAQ */}
+      <section style={{ padding: "72px 0" }}>
+        <div className="container-mo" style={{ maxWidth: 720 }}>
+          <p className="eyebrow" style={{ marginBottom: 16 }}>Quick answers</p>
+          <h2 className="h2" style={{ marginBottom: 40 }}>Common <em className="serif-italic">questions</em></h2>
+          <div>
+            {FAQS.map((faq, i) => (
+              <div key={i} style={{ borderBottom: "1px solid var(--hair-200)" }}>
+                <button
+                  onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "20px 0",
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    textAlign: "left",
+                    gap: 16,
+                  }}
+                >
+                  <span style={{ fontSize: 16, fontWeight: 600, color: "var(--ink-900)" }}>{faq.q}</span>
+                  <ChevronDown
+                    size={18}
+                    color="var(--ink-500)"
+                    style={{ flexShrink: 0, transition: "transform 0.2s", transform: openFaq === i ? "rotate(180deg)" : "rotate(0deg)" }}
+                  />
+                </button>
+                {openFaq === i && (
+                  <p style={{ fontSize: 15, color: "var(--ink-700)", lineHeight: 1.65, paddingBottom: 20, margin: 0 }}>
+                    {faq.a}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact form */}
+      <section style={{ padding: "72px 0", background: "var(--pink-wash)" }}>
+        <div className="container-mo">
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 80, alignItems: "start" }} className="contact-grid">
+            <div>
+              <p className="eyebrow" style={{ marginBottom: 16 }}>Send a message</p>
+              <h2 className="h2" style={{ marginBottom: 16 }}>Still have <em className="serif-italic">questions?</em></h2>
+              <p style={{ fontSize: 16, color: "var(--ink-700)", lineHeight: 1.65, marginBottom: 32 }}>
+                Use the form to reach us. We respond within 1–2 business days. For urgent membership issues, mention &ldquo;urgent&rdquo; in your subject line.
+              </p>
+
+              {/* Social card */}
+              <div
+                style={{
+                  background: "#fff",
+                  border: "1px solid var(--hair-200)",
+                  borderRadius: "var(--radius-lg)",
+                  padding: "24px",
+                  boxShadow: "var(--shadow-sm)",
+                }}
+              >
+                <p style={{ fontSize: 14, fontWeight: 600, color: "var(--ink-800)", marginBottom: 16 }}>Follow along</p>
+                <a
+                  href="#"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 12,
+                    fontSize: 14,
+                    color: "var(--ink-700)",
+                    textDecoration: "none",
+                  }}
+                >
+                  <div style={{ width: 36, height: 36, borderRadius: "var(--radius-sm)", background: "var(--pink-50)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <ExternalLink size={18} color="var(--pink-600)" />
+                  </div>
+                  @themahjongopen
+                </a>
+              </div>
+            </div>
+
+            <div
+              style={{
+                background: "#fff",
+                border: "1px solid var(--hair-200)",
+                borderRadius: "var(--radius-lg)",
+                padding: "36px 32px",
+                boxShadow: "var(--shadow-sm)",
+              }}
+            >
+              {submitted ? (
+                <div style={{ textAlign: "center", padding: "24px 0" }}>
+                  <div style={{ width: 56, height: 56, borderRadius: "50%", background: "var(--lime-50)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 20px" }}>
+                    <Send size={22} color="var(--lime-600)" />
+                  </div>
+                  <h3 style={{ fontFamily: "var(--font-display)", fontSize: 24, color: "var(--ink-900)", marginBottom: 12 }}>Message sent!</h3>
+                  <p style={{ fontSize: 15, color: "var(--ink-700)", lineHeight: 1.6 }}>We&rsquo;ll get back to you within 1–2 business days.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                      <label style={{ fontSize: 13, fontWeight: 600, color: "var(--ink-800)" }}>First name</label>
+                      <input className="input-mo" placeholder="Jane" value={form.first} onChange={(e) => setForm((f) => ({ ...f, first: e.target.value }))} />
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                      <label style={{ fontSize: 13, fontWeight: 600, color: "var(--ink-800)" }}>Last name</label>
+                      <input className="input-mo" placeholder="Smith" value={form.last} onChange={(e) => setForm((f) => ({ ...f, last: e.target.value }))} />
+                    </div>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    <label style={{ fontSize: 13, fontWeight: 600, color: "var(--ink-800)" }}>Email</label>
+                    <input className="input-mo" type="email" placeholder="you@example.com" value={form.email} onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))} />
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    <label style={{ fontSize: 13, fontWeight: 600, color: "var(--ink-800)" }}>Subject</label>
+                    <select className="input-mo" value={form.subject} onChange={(e) => setForm((f) => ({ ...f, subject: e.target.value }))}>
+                      <option value="">Select a subject</option>
+                      <option>Registration question</option>
+                      <option>Payment or billing</option>
+                      <option>Portal access</option>
+                      <option>New city inquiry</option>
+                      <option>Something else</option>
+                    </select>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                    <label style={{ fontSize: 13, fontWeight: 600, color: "var(--ink-800)" }}>Message</label>
+                    <textarea
+                      className="input-mo"
+                      rows={5}
+                      placeholder="Tell us what's on your mind…"
+                      value={form.message}
+                      onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                      style={{ resize: "vertical" }}
+                    />
+                  </div>
+                  <button className="btn btn-primary" type="submit" disabled={loading} style={{ justifyContent: "center", marginTop: 4 }}>
+                    <Send size={15} />
+                    {loading ? "Sending…" : "Send message"}
+                  </button>
+                </form>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <style>{`
+        .contact-grid { grid-template-columns: 1fr 1fr !important; }
+        @media (max-width: 900px) {
+          .contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+        }
+      `}</style>
+    </>
+  );
+}

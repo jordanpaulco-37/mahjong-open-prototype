@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="The Mahjong Open">
+  <rect x="11" y="6" width="42" height="52" rx="11" fill="#A6C23F"></rect>
+  <g fill="#FFFFFF">
+    <circle cx="32" cy="21.5" r="5"></circle>
+    <circle cx="32" cy="42.5" r="5"></circle>
+    <circle cx="21.5" cy="32" r="5"></circle>
+    <circle cx="42.5" cy="32" r="5"></circle>
+  </g>
+  <circle cx="32" cy="32" r="5.4" fill="#ECCF5C"></circle>
+</svg>

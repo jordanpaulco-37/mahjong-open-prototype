@@ -1,26 +1,522 @@
 @import "tailwindcss";
 
+/* ============================================================
+   THE MAHJONG OPEN — Design Tokens (ported verbatim)
+   Colors + Typography foundations and semantic variables.
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* ---------- FONT FAMILIES ---------- */
+  --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-body: "Hanken Grotesk", -apple-system, "Segoe UI", sans-serif;
+  --font-label: "Hanken Grotesk", -apple-system, sans-serif;
+
+  /* Warm neutrals */
+  --paper-50:   #FFFBF7;
+  --paper-100:  #FBF2F6;
+  --pink-wash:  #FDF4F8;
+  --lime-wash:  #F6F8EC;
+  --hair-200:   #EFE3E9;
+  --hair-300:   #E3D2DC;
+  --mute-400:   #CDBCC6;
+  --ink-500:    #8A7682;
+  --ink-700:    #5C4753;
+  --ink-800:    #463542;
+  --ink-900:    #35232E;
+
+  /* Pink — primary */
+  --pink-50:    #FDEFF6;
+  --pink-100:   #FBDCEC;
+  --pink-200:   #F6BBD9;
+  --pink-300:   #EF93BF;
+  --pink-400:   #E85A9B;
+  --pink-500:   #D93C84;
+  --pink-600:   #BE2A6E;
+  --pink-700:   #9A1F58;
+
+  /* Lime — secondary */
+  --lime-50:    #F4F7E2;
+  --lime-100:   #E9F0C6;
+  --lime-200:   #D6E398;
+  --lime-300:   #BFD266;
+  --lime-400:   #A6C23F;
+  --lime-500:   #8BA62E;
+  --lime-600:   #6E861F;
+  --lime-700:   #56691A;
+
+  /* Periwinkle — accent */
+  --peri-50:    #EEEFFB;
+  --peri-100:   #DEE1F6;
+  --peri-200:   #BFC5EC;
+  --peri-300:   #98A0DD;
+  --peri-400:   #6E79C9;
+  --peri-500:   #5760B2;
+  --peri-600:   #454D96;
+
+  /* Coral + Butter */
+  --coral-100:  #FCE2D7;
+  --coral-300:  #F8B69B;
+  --coral-400:  #F4926E;
+  --coral-500:  #E86F49;
+  --butter-100: #FCF2CC;
+  --butter-300: #F4E08C;
+  --butter-400: #ECCF5C;
+  --butter-500: #D8B43A;
+
+  /* Semantic roles */
+  --bg:            var(--paper-50);
+  --bg-raised:     var(--paper-100);
+  --bg-tint:       var(--pink-wash);
+  --bg-blush:      var(--pink-50);
+  --bg-sage:       var(--lime-wash);
+  --surface-card:  #FFFFFF;
+  --overlay-scrim: rgba(53, 35, 46, 0.42);
+
+  --fg1: var(--ink-900);
+  --fg2: var(--ink-700);
+  --fg3: var(--ink-500);
+  --fg-on-dark:  #FFF1F7;
+  --fg-on-blush: var(--pink-700);
+  --fg-on-sage:  #FFFFFF;
+  --fg-on-gold:  var(--ink-900);
+
+  --primary:         var(--pink-400);
+  --primary-hover:   var(--pink-500);
+  --primary-press:   var(--pink-600);
+  --primary-soft:    var(--pink-100);
+  --accent:          var(--peri-400);
+  --accent-hover:    var(--peri-500);
+  --secondary:       var(--lime-500);
+  --secondary-hover: var(--lime-600);
+
+  --border:        var(--hair-200);
+  --border-strong: var(--hair-300);
+  --border-blush:  var(--pink-200);
+  --ring:          rgba(232, 90, 155, 0.40);
+
+  --success:     var(--lime-600);
+  --success-bg:  var(--lime-50);
+  --warning:     var(--butter-500);
+  --warning-bg:  var(--butter-100);
+  --danger:      #D2483F;
+  --danger-bg:   #FBE3E0;
+  --info:        var(--peri-400);
+  --info-bg:     var(--peri-50);
+
+  /* Radii */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   18px;
+  --radius-xl:   26px;
+  --radius-pill: 999px;
+
+  /* Shadows */
+  --shadow-xs:   0 1px 2px rgba(53, 35, 46, 0.05);
+  --shadow-sm:   0 2px 8px rgba(53, 35, 46, 0.06);
+  --shadow-md:   0 6px 20px rgba(53, 35, 46, 0.09);
+  --shadow-lg:   0 16px 40px rgba(53, 35, 46, 0.13);
+  --shadow-gold: 0 8px 24px rgba(236, 207, 92, 0.30);
+  --shadow-pink: 0 8px 22px rgba(232, 90, 155, 0.26);
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* Easing */
+  --easing:      cubic-bezier(0.22, 0.61, 0.36, 1);
+  --easing-soft: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ============================================================
+   TAILWIND V4 THEME — maps design tokens to Tailwind utilities
+   ============================================================ */
+@theme {
+  /* Fonts */
+  --font-display: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-body: "Hanken Grotesk", -apple-system, "Segoe UI", sans-serif;
+
+  /* Colors — full palette exposed as Tailwind utilities */
+  --color-paper-50:   #FFFBF7;
+  --color-paper-100:  #FBF2F6;
+  --color-pink-wash:  #FDF4F8;
+  --color-lime-wash:  #F6F8EC;
+  --color-hair-200:   #EFE3E9;
+  --color-hair-300:   #E3D2DC;
+  --color-mute-400:   #CDBCC6;
+  --color-ink-500:    #8A7682;
+  --color-ink-700:    #5C4753;
+  --color-ink-800:    #463542;
+  --color-ink-900:    #35232E;
+
+  --color-pink-50:    #FDEFF6;
+  --color-pink-100:   #FBDCEC;
+  --color-pink-200:   #F6BBD9;
+  --color-pink-300:   #EF93BF;
+  --color-pink-400:   #E85A9B;
+  --color-pink-500:   #D93C84;
+  --color-pink-600:   #BE2A6E;
+  --color-pink-700:   #9A1F58;
+
+  --color-lime-50:    #F4F7E2;
+  --color-lime-100:   #E9F0C6;
+  --color-lime-200:   #D6E398;
+  --color-lime-300:   #BFD266;
+  --color-lime-400:   #A6C23F;
+  --color-lime-500:   #8BA62E;
+  --color-lime-600:   #6E861F;
+  --color-lime-700:   #56691A;
+
+  --color-peri-50:    #EEEFFB;
+  --color-peri-100:   #DEE1F6;
+  --color-peri-200:   #BFC5EC;
+  --color-peri-300:   #98A0DD;
+  --color-peri-400:   #6E79C9;
+  --color-peri-500:   #5760B2;
+  --color-peri-600:   #454D96;
+
+  --color-coral-100:  #FCE2D7;
+  --color-coral-300:  #F8B69B;
+  --color-coral-400:  #F4926E;
+  --color-coral-500:  #E86F49;
+  --color-butter-100: #FCF2CC;
+  --color-butter-300: #F4E08C;
+  --color-butter-400: #ECCF5C;
+  --color-butter-500: #D8B43A;
+
+  /* Border radii */
+  --radius-xs:   4px;
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   18px;
+  --radius-xl:   26px;
+  --radius-pill: 999px;
+
+  /* Box shadows */
+  --shadow-xs:   0 1px 2px rgba(53, 35, 46, 0.05);
+  --shadow-sm:   0 2px 8px rgba(53, 35, 46, 0.06);
+  --shadow-md:   0 6px 20px rgba(53, 35, 46, 0.09);
+  --shadow-lg:   0 16px 40px rgba(53, 35, 46, 0.13);
+  --shadow-gold: 0 8px 24px rgba(236, 207, 92, 0.30);
+  --shadow-pink: 0 8px 22px rgba(232, 90, 155, 0.26);
+
+  /* Easing */
+  --ease-garden: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Override font variables when Next.js font has loaded */
+:root {
+  --font-display: var(--font-display-loaded, "DM Serif Display"), Georgia, "Times New Roman", serif;
+  --font-body: var(--font-body-loaded, "Hanken Grotesk"), -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg1);
+  font-size: 16px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+.eyebrow {
+  font-family: var(--font-label);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--lime-600);
+}
+
+.serif-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--pink-400);
+}
+
+.h1 {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 5vw, 56px);
+  line-height: 1.04;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--fg1);
+}
+
+.h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.08;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--fg1);
+}
+
+.h3 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  line-height: 1.16;
+  font-weight: 400;
+  color: var(--fg1);
+}
+
+.h4 {
+  font-family: var(--font-body);
+  font-size: 21px;
+  line-height: 1.25;
+  font-weight: 600;
+  color: var(--fg1);
+}
+
+.body-lg {
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--fg2);
+}
+
+/* ============================================================
+   SECTION BACKGROUNDS
+   ============================================================ */
+.section-default { background: var(--bg); }
+.section-pink    { background: var(--pink-wash); }
+.section-lime    { background: var(--lime-wash); }
+.section-dark    { background: var(--ink-900); color: var(--fg-on-dark); }
+
+/* ============================================================
+   PAGE BANNER (secondary pages)
+   ============================================================ */
+.pbanner {
+  background: var(--pink-wash);
+  padding: 80px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.pbanner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(232, 90, 155, 0.04) 0px,
+      rgba(232, 90, 155, 0.04) 1px,
+      transparent 1px,
+      transparent 12px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(232, 90, 155, 0.04) 0px,
+      rgba(232, 90, 155, 0.04) 1px,
+      transparent 1px,
+      transparent 12px
+    );
+  pointer-events: none;
+}
+
+/* ============================================================
+   CONTENT MAX-WIDTH
+   ============================================================ */
+.container-mo {
+  max-width: 1180px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+/* ============================================================
+   CARD HOVER LIFT
+   ============================================================ */
+.card-lift {
+  transition: transform 0.18s var(--easing), box-shadow 0.18s var(--easing);
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================================================
+   BUTTON BASE
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s var(--easing), box-shadow 0.15s var(--easing), transform 0.1s;
+  white-space: nowrap;
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn-primary {
+  background: var(--pink-400);
+  color: #fff;
+  border-radius: var(--radius-pill);
+  padding: 12px 24px;
+  box-shadow: var(--shadow-pink);
+}
+.btn-primary:hover { background: var(--pink-500); }
+.btn-primary:active { background: var(--pink-600); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--ink-800);
+  border-radius: var(--radius-pill);
+  padding: 12px 24px;
+  border: 1.5px solid var(--border-strong);
+}
+.btn-ghost:hover { background: var(--paper-100); }
+
+.btn-gold {
+  background: var(--butter-400);
+  color: var(--ink-900);
+  border-radius: var(--radius-pill);
+  padding: 14px 32px;
+  font-size: 16px;
+  box-shadow: var(--shadow-gold);
+}
+.btn-gold:hover { background: var(--butter-500); }
+
+/* ============================================================
+   FORM INPUTS
+   ============================================================ */
+.input-mo {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: var(--fg1);
+  outline: none;
+  transition: border-color 0.15s;
+}
+.input-mo:focus {
+  border-color: var(--pink-400);
+  box-shadow: 0 0 0 3px var(--ring);
+}
+.input-mo::placeholder { color: var(--ink-500); }
+
+/* ============================================================
+   PORTAL — APP SHELL
+   ============================================================ */
+.portal-appbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  z-index: 50;
+  box-shadow: var(--shadow-xs);
+}
+
+.portal-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: #fff;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: stretch;
+  z-index: 50;
+  box-shadow: 0 -2px 8px rgba(53, 35, 46, 0.06);
+}
+
+.portal-content {
+  padding-top: 56px;
+  padding-bottom: 64px;
+  min-height: 100dvh;
+  background: var(--bg);
+}
+
+/* ============================================================
+   BADGE
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.02em;
+}
+.badge-lime   { background: var(--lime-50);   color: var(--lime-700); }
+.badge-pink   { background: var(--pink-50);   color: var(--pink-700); }
+.badge-peri   { background: var(--peri-50);   color: var(--peri-600); }
+.badge-butter { background: var(--butter-100); color: var(--ink-800); }
+.badge-mute   { background: var(--paper-100); color: var(--ink-500); }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink-900);
+  color: var(--fg-on-dark);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-md);
+  z-index: 100;
+  white-space: nowrap;
+  animation: toast-in 0.22s var(--easing);
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ============================================================
+   STANDING ROW HIGHLIGHT
+   ============================================================ */
+.standings-me {
+  background: var(--pink-50);
+  font-weight: 600;
 }

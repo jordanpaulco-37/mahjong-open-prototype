@@ -1,0 +1,127 @@
+import Link from "next/link";
+import { CalendarDays, MapPin, Trophy, Plus } from "lucide-react";
+import { getDashboardData } from "@/lib/data";
+import { getDemoUser } from "@/lib/data/auth";
+
+function greeting(name: string) {
+  const hour = new Date().getHours();
+  const part = hour < 12 ? "morning" : hour < 17 ? "afternoon" : "evening";
+  return `Good ${part}, ${name.split(" ")[0]}`;
+}
+
+export default async function PortalDashboard() {
+  const user = getDemoUser();
+  const { membership, nextSeat, standing, pinned } = await getDashboardData(user.id);
+  const nextTable = nextSeat?.scramble_tables ?? null;
+  const totalWeeks = membership?.seasons?.total_weeks ?? 9;
+
+  return (
+    <div style={{ padding: "20px 16px", maxWidth: 480, margin: "0 auto" }}>
+      <p style={{ fontSize: 22, fontFamily: "var(--font-display)", color: "var(--ink-900)", marginBottom: 20 }}>
+        {greeting(user.full_name)}
+      </p>
+
+      {/* Next table hero card */}
+      {nextTable ? (
+        <Link href={`/portal/tables/${nextTable.id}`} style={{ textDecoration: "none", display: "block", marginBottom: 20 }}>
+          <div
+            style={{
+              background: "linear-gradient(135deg, var(--pink-600) 0%, var(--pink-400) 100%)",
+              borderRadius: "var(--radius-xl)",
+              padding: "24px",
+              color: "#fff",
+              boxShadow: "var(--shadow-pink)",
+            }}
+          >
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,241,247,0.7)", marginBottom: 12 }}>
+              Week {nextTable.week_number} · Your next table
+            </p>
+            <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <CalendarDays size={16} color="rgba(255,241,247,0.8)" />
+                <span style={{ fontSize: 15 }}>
+                  {new Date(nextTable.table_date).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} · {nextTable.table_time.slice(0, 5)}
+                </span>
+              </div>
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <MapPin size={16} color="rgba(255,241,247,0.8)" />
+                <span style={{ fontSize: 15 }}>{nextTable.location_name}</span>
+              </div>
+            </div>
+            <p style={{ fontSize: 13, marginTop: 12, color: "rgba(255,241,247,0.7)" }}>
+              Seat {nextSeat?.seat_number} · Tap for details →
+            </p>
+          </div>
+        </Link>
+      ) : (
+        <div
+          style={{
+            background: "var(--pink-50)",
+            border: "1.5px dashed var(--pink-200)",
+            borderRadius: "var(--radius-xl)",
+            padding: "24px",
+            textAlign: "center",
+            marginBottom: 20,
+          }}
+        >
+          <p style={{ fontFamily: "var(--font-display)", fontSize: 18, color: "var(--ink-900)", marginBottom: 8 }}>No upcoming table</p>
+          <p style={{ fontSize: 14, color: "var(--ink-500)", marginBottom: 16 }}>Join or create a table for this week.</p>
+          <Link href="/portal/tables" className="btn btn-primary" style={{ fontSize: 14, display: "inline-flex" }}>
+            Browse open tables
+          </Link>
+        </div>
+      )}
+
+      {/* Stats */}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, marginBottom: 24 }}>
+        {[
+          { label: "Rank",         value: standing?.rank ? `#${standing.rank}` : "–" },
+          { label: "Points",       value: standing?.total_points ?? 0 },
+          { label: "Weeks played", value: standing ? `${standing.tables_played}/${totalWeeks}` : `0/${totalWeeks}` },
+        ].map((stat) => (
+          <div
+            key={stat.label}
+            style={{
+              background: "#fff",
+              border: "1px solid var(--hair-200)",
+              borderRadius: "var(--radius-lg)",
+              padding: "14px 12px",
+              textAlign: "center",
+              boxShadow: "var(--shadow-xs)",
+            }}
+          >
+            <p style={{ fontFamily: "var(--font-display)", fontSize: 24, color: "var(--pink-700)", lineHeight: 1 }}>{stat.value}</p>
+            <p style={{ fontSize: 11, color: "var(--ink-500)", marginTop: 4 }}>{stat.label}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Quick actions */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 24 }}>
+        <Link href="/portal/tables" className="btn btn-ghost" style={{ justifyContent: "center", fontSize: 14, borderRadius: "var(--radius-lg)", padding: "12px" }}>
+          <CalendarDays size={16} /> Open tables
+        </Link>
+        <Link href="/portal/tables/create" className="btn btn-primary" style={{ justifyContent: "center", fontSize: 14, borderRadius: "var(--radius-lg)", padding: "12px" }}>
+          <Plus size={16} /> Create table
+        </Link>
+        <Link href="/portal/standings" className="btn btn-ghost" style={{ justifyContent: "center", fontSize: 14, borderRadius: "var(--radius-lg)", padding: "12px" }}>
+          <Trophy size={16} /> Standings
+        </Link>
+        <Link href="/portal/my-tables" className="btn btn-ghost" style={{ justifyContent: "center", fontSize: 14, borderRadius: "var(--radius-lg)", padding: "12px" }}>
+          My tables
+        </Link>
+      </div>
+
+      {/* Pinned announcement */}
+      {pinned && (
+        <div style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", padding: "16px 18px", boxShadow: "var(--shadow-xs)" }}>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--lime-600)", marginBottom: 6 }}>
+            Pinned announcement
+          </p>
+          <p style={{ fontSize: 15, fontWeight: 600, color: "var(--ink-900)", marginBottom: 6 }}>{pinned.title}</p>
+          <p style={{ fontSize: 14, color: "var(--ink-700)", lineHeight: 1.5 }}>{pinned.body}</p>
+        </div>
+      )}
+    </div>
+  );
+}
