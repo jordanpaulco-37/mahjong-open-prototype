@@ -39,7 +39,7 @@ export default function Nav({ activePage, onRegisterClick }: NavProps) {
           height: 64,
           display: "flex",
           alignItems: "center",
-          backgroundColor: scrolled ? "rgba(255,251,247,0.88)" : "rgba(255,251,247,0.96)",
+          backgroundColor: scrolled ? "rgba(250,252,251,0.88)" : "rgba(250,252,251,0.96)",
           backdropFilter: "blur(12px)",
           WebkitBackdropFilter: "blur(12px)",
           borderBottom: scrolled ? "1px solid var(--hair-200)" : "1px solid transparent",
@@ -54,24 +54,12 @@ export default function Nav({ activePage, onRegisterClick }: NavProps) {
           {/* Brand */}
           <Link href="/" style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}>
             <Image
-              src="/assets/mark-primary.svg"
-              alt="The Mahjong Open mark"
-              width={34}
-              height={34}
+              src="/assets/logo-nav.svg?v=2"
+              alt="The Mahjong Open"
+              width={123}
+              height={40}
               priority
             />
-            <span
-              style={{
-                fontFamily: "var(--font-display)",
-                fontSize: 17,
-                fontWeight: 400,
-                color: "var(--ink-900)",
-                letterSpacing: "-0.01em",
-                lineHeight: 1.2,
-              }}
-            >
-              The Mahjong Open
-            </span>
           </Link>
 
           {/* Desktop links */}

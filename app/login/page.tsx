@@ -10,7 +10,7 @@ export default function LoginPage() {
         <h1 style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 400, color: "var(--ink-900)", marginBottom: 16 }}>
           Demo mode
         </h1>
-        <div style={{ background: "var(--butter-50)", border: "1px solid var(--butter-300)", borderRadius: "var(--radius-md)", padding: "12px 16px", marginBottom: 28, fontSize: 14, color: "var(--ink-700)", lineHeight: 1.6, textAlign: "left" }}>
+        <div style={{ background: "var(--peri-50)", border: "1px solid var(--peri-200)", borderRadius: "var(--radius-md)", padding: "12px 16px", marginBottom: 28, fontSize: 14, color: "var(--ink-700)", lineHeight: 1.6, textAlign: "left" }}>
           This is a front-end prototype with mock data. Authentication is not yet connected — pick a view to explore.
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>

@@ -28,14 +28,14 @@ export default function PaymentGatePage() {
             width: 56,
             height: 56,
             borderRadius: "50%",
-            background: "var(--butter-100)",
+            background: "var(--peri-50)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             margin: "0 auto 20px",
           }}
         >
-          <CreditCard size={24} color="var(--butter-500)" />
+          <CreditCard size={24} color="var(--peri-500)" />
         </div>
 
         <h1
@@ -59,7 +59,7 @@ export default function PaymentGatePage() {
         <div
           style={{
             background: "var(--warning-bg)",
-            border: "1px solid var(--butter-300)",
+            border: "1px solid var(--peri-200)",
             borderRadius: "var(--radius-sm)",
             padding: "12px 16px",
             fontSize: 13,

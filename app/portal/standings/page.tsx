@@ -7,7 +7,6 @@ export default async function StandingsPage() {
     getStandings(),
     getMembership(user.id),
   ]);
-  const totalWeeks = membership?.seasons?.total_weeks ?? 9;
   const cityName = membership?.cities?.name ?? "Los Angeles";
   const seasonName = membership?.seasons?.name ?? "Spring 2026";
 
@@ -20,7 +19,7 @@ export default async function StandingsPage() {
 
       <div style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", overflow: "hidden", boxShadow: "var(--shadow-sm)" }}>
         <div style={{ display: "grid", gridTemplateColumns: "36px 1fr 60px 50px 64px", padding: "10px 16px", borderBottom: "1px solid var(--hair-200)", gap: 8 }}>
-          {["#", "Player", "Pts", "Wins", "Wks"].map((h) => (
+          {["#", "Player", "Pts", "Wins", "Games"].map((h) => (
             <p key={h} style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-500)", letterSpacing: "0.1em", textTransform: "uppercase" }}>{h}</p>
           ))}
         </div>
@@ -41,7 +40,7 @@ export default async function StandingsPage() {
                 background: isMe ? "var(--pink-50)" : "#fff",
               }}
             >
-              <p style={{ fontSize: 15, fontFamily: "var(--font-display)", color: row.rank === 1 ? "var(--butter-500)" : "var(--ink-700)" }}>
+              <p style={{ fontSize: 15, fontFamily: "var(--font-display)", color: row.rank === 1 ? "var(--crimson-500)" : "var(--ink-700)" }}>
                 {row.rank}
               </p>
               <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
@@ -61,7 +60,7 @@ export default async function StandingsPage() {
               </div>
               <p style={{ fontSize: 14, fontWeight: 600, color: "var(--ink-900)" }}>{row.total_points}</p>
               <p style={{ fontSize: 14, color: "var(--ink-700)" }}>{row.total_wins}</p>
-              <p style={{ fontSize: 13, color: "var(--ink-500)" }}>{row.tables_played}/{totalWeeks}</p>
+              <p style={{ fontSize: 13, color: "var(--ink-500)" }}>{row.tables_played}</p>
             </div>
           );
         })}

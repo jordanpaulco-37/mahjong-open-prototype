@@ -56,7 +56,7 @@ export default function PortalShellClient({
           <div
             style={{
               background: "var(--ink-900)",
-              color: "var(--butter-400)",
+              color: "var(--crimson-400)",
               fontSize: 12,
               fontWeight: 700,
               letterSpacing: "0.12em",

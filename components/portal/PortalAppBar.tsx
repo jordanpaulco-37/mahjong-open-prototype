@@ -58,13 +58,13 @@ export default function PortalAppBar({ title, isAdmin, onToggleAdmin, hasNotific
               height: 32,
               borderRadius: "50%",
               background: isAdmin ? "var(--ink-900)" : "var(--pink-100)",
-              border: "2px solid " + (isAdmin ? "var(--butter-400)" : "var(--pink-300)"),
+              border: "2px solid " + (isAdmin ? "var(--crimson-400)" : "var(--pink-300)"),
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               fontSize: 12,
               fontWeight: 700,
-              color: isAdmin ? "var(--butter-400)" : "var(--pink-700)",
+              color: isAdmin ? "var(--crimson-400)" : "var(--pink-700)",
               cursor: "pointer",
             }}
           >

@@ -29,7 +29,7 @@ export const MOCK_SEASONS = [
     quarter: 2,
     starts_at: "2026-05-15",
     ends_at: "2026-07-17",
-    total_weeks: 9,
+    total_weeks: 8,
     is_active: true,
     created_at: "2026-04-01T00:00:00Z",
     cities: { name: "Los Angeles" },
@@ -42,7 +42,7 @@ export const MOCK_SEASONS = [
     quarter: 2,
     starts_at: "2026-05-20",
     ends_at: "2026-07-22",
-    total_weeks: 9,
+    total_weeks: 8,
     is_active: true,
     created_at: "2026-04-01T00:00:00Z",
     cities: { name: "New York" },
@@ -59,7 +59,7 @@ export const MOCK_MEMBERSHIP = {
   skill_level: "intermediate" as const,
   created_at: "2026-04-20T00:00:00Z",
   cities:  { name: "Los Angeles" },
-  seasons: { name: "Spring 2026", total_weeks: 9 },
+  seasons: { name: "Spring 2026", total_weeks: 8 },
 };
 
 // Current week in the demo is Week 4 (Jun 5–11, 2026)

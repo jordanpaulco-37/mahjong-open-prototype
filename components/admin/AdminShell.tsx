@@ -47,12 +47,12 @@ export default function AdminShell({ children, adminName }: { children: React.Re
         className="admin-sidebar"
       >
         {/* Brand */}
-        <div style={{ padding: "20px 16px", borderBottom: "1px solid rgba(255,241,247,0.1)" }}>
+        <div style={{ padding: "20px 16px", borderBottom: "1px solid rgba(234,242,242,0.1)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
             <Image src="/assets/mark-mono.svg" alt="" width={24} height={24} />
             <span style={{ fontFamily: "var(--font-display)", fontSize: 14, color: "var(--fg-on-dark)" }}>Mahjong Open</span>
           </div>
-          <p style={{ fontSize: 11, color: "rgba(255,241,247,0.4)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Admin Panel</p>
+          <p style={{ fontSize: 11, color: "rgba(234,242,242,0.4)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Admin Panel</p>
         </div>
 
         {/* Nav */}
@@ -73,7 +73,7 @@ export default function AdminShell({ children, adminName }: { children: React.Re
                   textDecoration: "none",
                   fontSize: 14,
                   fontWeight: active ? 600 : 400,
-                  color: active ? "#fff" : "rgba(255,241,247,0.6)",
+                  color: active ? "#fff" : "rgba(234,242,242,0.6)",
                   background: active ? "rgba(255,255,255,0.1)" : "transparent",
                   transition: "background 0.15s, color 0.15s",
                 }}
@@ -86,7 +86,7 @@ export default function AdminShell({ children, adminName }: { children: React.Re
         </nav>
 
         {/* Footer */}
-        <div style={{ padding: "12px 8px", borderTop: "1px solid rgba(255,241,247,0.1)" }}>
+        <div style={{ padding: "12px 8px", borderTop: "1px solid rgba(234,242,242,0.1)" }}>
           <Link
             href="/portal"
             style={{
@@ -97,7 +97,7 @@ export default function AdminShell({ children, adminName }: { children: React.Re
               borderRadius: "var(--radius-sm)",
               textDecoration: "none",
               fontSize: 13,
-              color: "rgba(255,241,247,0.5)",
+              color: "rgba(234,242,242,0.5)",
               marginBottom: 4,
             }}
           >
@@ -117,7 +117,7 @@ export default function AdminShell({ children, adminName }: { children: React.Re
               border: "none",
               cursor: "pointer",
               fontSize: 13,
-              color: "rgba(255,241,247,0.5)",
+              color: "rgba(234,242,242,0.5)",
               textAlign: "left",
             }}
           >
@@ -125,7 +125,7 @@ export default function AdminShell({ children, adminName }: { children: React.Re
             Sign out
           </button>
           <div style={{ padding: "10px 10px 0" }}>
-            <p style={{ fontSize: 12, color: "rgba(255,241,247,0.35)" }}>{adminName}</p>
+            <p style={{ fontSize: 12, color: "rgba(234,242,242,0.35)" }}>{adminName}</p>
           </div>
         </div>
       </aside>

@@ -11,9 +11,8 @@ function greeting(name: string) {
 
 export default async function PortalDashboard() {
   const user = getDemoUser();
-  const { membership, nextSeat, standing, pinned } = await getDashboardData(user.id);
+  const { nextSeat, standing, pinned } = await getDashboardData(user.id);
   const nextTable = nextSeat?.scramble_tables ?? null;
-  const totalWeeks = membership?.seasons?.total_weeks ?? 9;
 
   return (
     <div style={{ padding: "20px 16px", maxWidth: 480, margin: "0 auto" }}>
@@ -33,22 +32,22 @@ export default async function PortalDashboard() {
               boxShadow: "var(--shadow-pink)",
             }}
           >
-            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,241,247,0.7)", marginBottom: 12 }}>
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(234,242,242,0.7)", marginBottom: 12 }}>
               Week {nextTable.week_number} · Your next table
             </p>
             <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <CalendarDays size={16} color="rgba(255,241,247,0.8)" />
+                <CalendarDays size={16} color="rgba(234,242,242,0.8)" />
                 <span style={{ fontSize: 15 }}>
                   {new Date(nextTable.table_date).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })} · {nextTable.table_time.slice(0, 5)}
                 </span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <MapPin size={16} color="rgba(255,241,247,0.8)" />
+                <MapPin size={16} color="rgba(234,242,242,0.8)" />
                 <span style={{ fontSize: 15 }}>{nextTable.location_name}</span>
               </div>
             </div>
-            <p style={{ fontSize: 13, marginTop: 12, color: "rgba(255,241,247,0.7)" }}>
+            <p style={{ fontSize: 13, marginTop: 12, color: "rgba(234,242,242,0.7)" }}>
               Seat {nextSeat?.seat_number} · Tap for details →
             </p>
           </div>
@@ -77,7 +76,7 @@ export default async function PortalDashboard() {
         {[
           { label: "Rank",         value: standing?.rank ? `#${standing.rank}` : "–" },
           { label: "Points",       value: standing?.total_points ?? 0 },
-          { label: "Weeks played", value: standing ? `${standing.tables_played}/${totalWeeks}` : `0/${totalWeeks}` },
+          { label: "Games played", value: standing?.tables_played ?? 0 },
         ].map((stat) => (
           <div
             key={stat.label}

@@ -17,13 +17,13 @@ const CATEGORIES: Category[] = [
 const PRODUCTS = [
   { title: "Jade Dynasty Tile Set", category: "Tiles & sets", blurb: "A stunning full-weight bakelite set with a classic ivory finish. Our most-gifted pick.", href: "#", bg: "var(--lime-wash)" },
   { title: "NMJL Official Card 2026", category: "Cards & accessories", blurb: "The current National Mah Jongg League card — updated every year, essential for league play.", href: "#", bg: "var(--pink-wash)" },
-  { title: "Bamboo Tile Rack Set (4)", category: "Table & decor", blurb: "Lightweight, stackable bamboo racks that look beautiful on any table.", href: "#", bg: "var(--butter-100)" },
-  { title: "The Mahjong Line — Starter Set", category: "Tiles & sets", blurb: "Modern aesthetic, American rules. A favorite among new players and design lovers alike.", href: "#", bg: "var(--coral-100)" },
+  { title: "Bamboo Tile Rack Set (4)", category: "Table & decor", blurb: "Lightweight, stackable bamboo racks that look beautiful on any table.", href: "#", bg: "var(--lime-50)" },
+  { title: "The Mahjong Line — Starter Set", category: "Tiles & sets", blurb: "Modern aesthetic, American rules. A favorite among new players and design lovers alike.", href: "#", bg: "var(--peri-50)" },
   { title: "Velvet Tile Pouch", category: "Cards & accessories", blurb: "A plush carrying pouch for your tiles. Protects the set and travels beautifully.", href: "#", bg: "var(--peri-50)" },
   { title: "Linen Tablerunner — Garden Party", category: "Table & decor", blurb: "The perfect surface for your tiles. Soft linen, botanical print, machine washable.", href: "#", bg: "var(--lime-wash)" },
   { title: "Mah Jongg Tote Bag", category: "Gifts & apparel", blurb: "Canvas tote printed with tile motifs. Big enough for a full set, stylish enough for anywhere.", href: "#", bg: "var(--pink-50)" },
-  { title: "Wind Tile Enamel Pin Set", category: "Gifts & apparel", blurb: "East, South, West, North — four enamel pins for the player who has everything.", href: "#", bg: "var(--butter-100)" },
-  { title: "Table Score Tracker", category: "Cards & accessories", blurb: "A reusable dry-erase pad sized for foursome scoring. Designed for league play.", href: "#", bg: "var(--coral-100)" },
+  { title: "Wind Tile Enamel Pin Set", category: "Gifts & apparel", blurb: "East, South, West, North — four enamel pins for the player who has everything.", href: "#", bg: "var(--lime-50)" },
+  { title: "Table Score Tracker", category: "Cards & accessories", blurb: "A reusable dry-erase pad sized for foursome scoring. Designed for league play.", href: "#", bg: "var(--peri-50)" },
 ];
 
 export default function ShopPage() {

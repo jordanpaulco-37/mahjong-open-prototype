@@ -10,7 +10,7 @@ const FORMAT_STEPS = [
   {
     icon: Users,
     title: "Register for your city",
-    body: "Join the season in your city. One quarterly registration covers your full 9-week scramble.",
+    body: "Join the season in your city. One seasonal registration covers your full 8-week scramble.",
   },
   {
     icon: CalendarDays,
@@ -25,7 +25,7 @@ const FORMAT_STEPS = [
   {
     icon: Trophy,
     title: "Earn points all season",
-    body: "Scores are submitted after each game and approved by league admins. Points stack across all 9 weeks.",
+    body: "Scores are submitted after each game and approved by league admins. Points stack across all 8 weeks.",
   },
   {
     icon: Repeat2,
@@ -44,7 +44,7 @@ const EVENTS = [
     title: "Spring Kickoff Tea",
     date: "Mar 14 · Opening",
     body: "Kick off the season with an opening tea, introductions, and your first game of the quarter.",
-    color: "var(--coral-100)",
+    color: "var(--peri-100)",
   },
   {
     title: "The Blossom Bracket",
@@ -80,13 +80,13 @@ export default function HomePage() {
           <div className="hero-grid">
             {/* Copy */}
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 24 }}>
-              <p className="eyebrow">Spring Scramble · 2026</p>
+              <p className="eyebrow">Mahjong Scramble League</p>
               <h1 className="h1">
                 Game on,{" "}
                 <em className="serif-italic">ladies.</em>
               </h1>
               <p className="body-lg" style={{ maxWidth: 480 }}>
-                The Mahjong Open is a city-based quarterly scramble league. Register once, play every week for 9 weeks, and climb your city&rsquo;s leaderboard.
+                The Mahjong Open is a city-based seasonal scramble league. Register once, play unlimited matches for 8 weeks, and climb your city&rsquo;s leaderboard.
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <button
@@ -374,7 +374,7 @@ export default function HomePage() {
         <div className="container-mo">
           <div
             style={{
-              background: "linear-gradient(135deg, var(--pink-600) 0%, var(--pink-400) 60%, var(--coral-400) 100%)",
+              background: "linear-gradient(135deg, var(--pink-600) 0%, var(--pink-400) 100%)",
               borderRadius: "var(--radius-xl)",
               padding: "56px 48px",
               display: "flex",
@@ -390,11 +390,11 @@ export default function HomePage() {
                   fontWeight: 600,
                   letterSpacing: "0.16em",
                   textTransform: "uppercase",
-                  color: "rgba(255,241,247,0.65)",
+                  color: "rgba(234,242,242,0.65)",
                   marginBottom: 16,
                 }}
               >
-                Spring 2026 · Now open
+                Launching August 2026
               </p>
               <h2
                 style={{
@@ -407,10 +407,10 @@ export default function HomePage() {
                 }}
               >
                 Ready to play?{" "}
-                <em style={{ color: "var(--butter-300)" }}>Save your spot.</em>
+                <em style={{ color: "#fff" }}>Save your spot.</em>
               </h2>
-              <p style={{ fontSize: 15, color: "rgba(255,241,247,0.8)", lineHeight: 1.6 }}>
-                Registration includes your full 9-week season, access to all city tables, and a spot on the leaderboard.
+              <p style={{ fontSize: 15, color: "rgba(234,242,242,0.8)", lineHeight: 1.6 }}>
+                Registration includes your full 8-week season, access to all city tables, and a spot on the leaderboard.
               </p>
             </div>
 
@@ -428,13 +428,13 @@ export default function HomePage() {
                 <p style={{ fontSize: 13, fontWeight: 600, color: "#fff", marginBottom: 12 }}>Your season includes:</p>
                 <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
                   {[
-                    "9 weekly game nights",
+                    "8 weekly game nights",
                     "Access to all open tables in your city",
                     "Live standings & score tracking",
                     "League announcements & events",
                   ].map((item) => (
-                    <li key={item} style={{ fontSize: 14, color: "rgba(255,241,247,0.85)", display: "flex", gap: 8, alignItems: "flex-start" }}>
-                      <span style={{ color: "var(--butter-300)", marginTop: 2, flexShrink: 0 }}>✓</span>
+                    <li key={item} style={{ fontSize: 14, color: "rgba(234,242,242,0.85)", display: "flex", gap: 8, alignItems: "flex-start" }}>
+                      <span style={{ color: "#fff", marginTop: 2, flexShrink: 0 }}>✓</span>
                       {item}
                     </li>
                   ))}

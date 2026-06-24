@@ -7,7 +7,7 @@ const SEASON_EVENTS = [
     title: "Spring Kickoff Tea",
     type: "Opening event",
     body: "The season opener. Meet your fellow players, tour the league format, and play your first table of the quarter over tea and snacks.",
-    color: "var(--coral-100)",
+    color: "var(--peri-100)",
   },
   {
     date: "Apr 18, 2026",
@@ -26,7 +26,7 @@ const SEASON_EVENTS = [
 ];
 
 const WEEKLY_INFO = [
-  { label: "Season length", value: "9 weeks" },
+  { label: "Season length", value: "8 weeks" },
   { label: "Frequency", value: "One game per week" },
   { label: "Table size", value: "4 players" },
   { label: "Format", value: "American mahjong" },
@@ -40,7 +40,7 @@ export default function EventsPage() {
       <PageBanner
         eyebrow="Spring 2026 season"
         headline={<>A calendar worth <em className="serif-italic">dressing up</em> for</>}
-        lead="Three signature events frame every 9-week season. Here's what to look forward to."
+        lead="Three signature events frame every 8-week season. Here's what to look forward to."
       />
 
       {/* Year at a glance */}

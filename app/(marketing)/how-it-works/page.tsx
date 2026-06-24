@@ -5,16 +5,16 @@ import PageBanner from "@/components/marketing/PageBanner";
 import { ChevronDown } from "lucide-react";
 
 const STEPS = [
-  { n: "01", title: "Register for your city's season", body: "Choose your city, fill out your registration, and complete payment. Each quarterly season runs 9 weeks — one game per week." },
+  { n: "01", title: "Register for your city's season", body: "Choose your city, fill out your registration, and complete payment. Each season runs 8 weeks — one game per week." },
   { n: "02", title: "Get access to the player portal", body: "Once you're paid and confirmed, you'll receive login credentials for the private player portal. This is where everything lives." },
   { n: "03", title: "Sign up for your weekly table", body: "Each week, browse open tables in your city — or create one. Pick your date, time, and location. You fill seat 1 automatically." },
   { n: "04", title: "Play your game", body: "Your foursome meets at the chosen spot. Play a full session of American mahjong. The table creator records the result." },
   { n: "05", title: "Submit the score", body: "After the game, the table creator enters each player's wins and points. Scores go to admin for review." },
-  { n: "06", title: "Watch your standings update", body: "Once an admin approves the score, your points land on the city leaderboard. Repeat every week for 9 weeks." },
+  { n: "06", title: "Watch your standings update", body: "Once an admin approves the score, your points land on the city leaderboard. Repeat every week for 8 weeks." },
 ];
 
 const FAQS = [
-  { q: "Do I have to play every week?", a: "No — there's no attendance requirement. Play as many of the 9 weeks as you'd like. Points only come from weeks you play." },
+  { q: "Do I have to play every week?", a: "No — there's no attendance requirement. Play as many of the 8 weeks as you'd like. Points only come from weeks you play." },
   { q: "Can I play more than one table per week?", a: "Each week you can claim a seat at one open table (or create your own). One game per week per player." },
   { q: "What if a player cancels?", a: "You can cancel your own seat up to 24 hours before game time. Within 24 hours, the seat is locked." },
   { q: "Who submits the score?", a: "Only the table creator can submit scores. All four seated players can see the pending score in their portal." },
@@ -39,7 +39,7 @@ export default function HowItWorksPage() {
           <p className="eyebrow" style={{ marginBottom: 16 }}>The basics</p>
           <h2 className="h2" style={{ marginBottom: 24 }}>One season. Nine weeks. <em className="serif-italic">Your pace.</em></h2>
           <p className="body-lg" style={{ marginBottom: 20 }}>
-            The Mahjong Open runs city-by-city on a quarterly schedule. Each season is exactly 9 weeks long. When you register, you&rsquo;re in for the full season in your city — but you choose which weeks to play.
+            The Mahjong Open runs city-by-city on a seasonal schedule. Each season is exactly 8 weeks long. When you register, you&rsquo;re in for the full season in your city — but you choose which weeks to play.
           </p>
           <p style={{ fontSize: 16, color: "var(--ink-700)", lineHeight: 1.65 }}>
             Every week, paid players in your city can create or join a 4-person table. You pick the day, time, and location. The game happens. The creator submits the score. An admin approves it. Your points land on the leaderboard. Repeat.
@@ -101,7 +101,7 @@ export default function HowItWorksPage() {
             After each game, the table creator submits results — wins and points per player. An admin reviews and approves the score. Once approved, points are added to the city leaderboard.
           </p>
           <p style={{ fontSize: 16, color: "var(--ink-700)", lineHeight: 1.65 }}>
-            Standings show rank, total wins, total points, and tables played out of 9. The player with the most points at the end of 9 weeks wins the season in their city.
+            Standings show rank, total wins, total points, and total games played. The player with the most points at the end of the 8-week season wins the season in their city.
           </p>
         </div>
       </section>

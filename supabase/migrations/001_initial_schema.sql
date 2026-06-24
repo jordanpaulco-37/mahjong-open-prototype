@@ -39,7 +39,7 @@ create table if not exists public.cities (
   created_at  timestamptz not null default now()
 );
 
--- Seasons (9-week quarters, one active per city)
+-- Seasons (8-week seasons, one active per city)
 create table if not exists public.seasons (
   id           uuid primary key default gen_random_uuid(),
   city_id      uuid references public.cities on delete cascade not null,
@@ -48,7 +48,7 @@ create table if not exists public.seasons (
   quarter      integer check (quarter between 1 and 4),
   starts_at    timestamptz,
   ends_at      timestamptz,
-  total_weeks  integer not null default 9,
+  total_weeks  integer not null default 8,
   is_active    boolean not null default false,
   created_at   timestamptz not null default now()
 );

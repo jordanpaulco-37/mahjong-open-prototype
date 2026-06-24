@@ -40,24 +40,15 @@ export default function Footer() {
         >
           {/* Brand column */}
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 16 }}>
+            <div style={{ marginBottom: 16 }}>
               <Image
-                src="/assets/mark-mono.svg"
+                src="/assets/logo-white.svg?v=2"
                 alt="The Mahjong Open"
-                width={32}
-                height={32}
+                width={123}
+                height={40}
               />
-              <span
-                style={{
-                  fontFamily: "var(--font-display)",
-                  fontSize: 16,
-                  color: "var(--fg-on-dark)",
-                }}
-              >
-                The Mahjong Open
-              </span>
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(255,241,247,0.6)", maxWidth: 220 }}>
+            <p style={{ fontSize: 14, lineHeight: 1.6, color: "rgba(234,242,242,0.6)", maxWidth: 220 }}>
               A city-based scramble league for women who love the game. One season, nine weeks, endless tables.
             </p>
           </div>
@@ -75,7 +66,7 @@ export default function Footer() {
         {/* Legal */}
         <div
           style={{
-            borderTop: "1px solid rgba(255,241,247,0.12)",
+            borderTop: "1px solid rgba(234,242,242,0.12)",
             paddingTop: 24,
             display: "flex",
             justifyContent: "space-between",
@@ -84,7 +75,7 @@ export default function Footer() {
             gap: 12,
           }}
         >
-          <p style={{ fontSize: 13, color: "rgba(255,241,247,0.45)" }}>
+          <p style={{ fontSize: 13, color: "rgba(234,242,242,0.45)" }}>
             © 2026 The Mahjong Open
           </p>
           <div style={{ display: "flex", gap: 20 }}>
@@ -92,7 +83,7 @@ export default function Footer() {
               <Link
                 key={t}
                 href="#"
-                style={{ fontSize: 13, color: "rgba(255,241,247,0.45)", textDecoration: "none" }}
+                style={{ fontSize: 13, color: "rgba(234,242,242,0.45)", textDecoration: "none" }}
               >
                 {t}
               </Link>
@@ -126,7 +117,7 @@ function FooterCol({ title, links }: { title: string; links: { label: string; hr
           fontWeight: 600,
           letterSpacing: "0.14em",
           textTransform: "uppercase",
-          color: "rgba(255,241,247,0.45)",
+          color: "rgba(234,242,242,0.45)",
           marginBottom: 16,
         }}
       >
@@ -134,12 +125,12 @@ function FooterCol({ title, links }: { title: string; links: { label: string; hr
       </p>
       <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 10 }}>
         {links.map((link) => (
-          <li key={link.href}>
+          <li key={link.label}>
             <Link
               href={link.href}
               style={{
                 fontSize: 14,
-                color: "rgba(255,241,247,0.7)",
+                color: "rgba(234,242,242,0.7)",
                 textDecoration: "none",
                 transition: "color 0.15s",
               }}

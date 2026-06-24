@@ -15,9 +15,9 @@ export default async function AdminDashboard() {
 
   return (
     <div style={{ maxWidth: 900 }}>
-      <div style={{ background: "var(--ink-900)", color: "var(--butter-400)", borderRadius: "var(--radius-lg)", padding: "20px 24px", marginBottom: 32, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ background: "var(--ink-900)", color: "var(--crimson-400)", borderRadius: "var(--radius-lg)", padding: "20px 24px", marginBottom: 32, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,241,247,0.5)", marginBottom: 4 }}>Admin view</p>
+          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(234,242,242,0.5)", marginBottom: 4 }}>Admin view</p>
           <h1 style={{ fontFamily: "var(--font-display)", fontSize: 24, fontWeight: 400, color: "#fff" }}>Season at a glance</h1>
         </div>
         <div style={{ display: "flex", gap: 32 }}>
@@ -27,8 +27,8 @@ export default async function AdminDashboard() {
             { label: "Pending scores", value: pending.length },
           ].map((s) => (
             <div key={s.label} style={{ textAlign: "center" }}>
-              <p style={{ fontFamily: "var(--font-display)", fontSize: 28, color: "var(--butter-400)", lineHeight: 1 }}>{s.value}</p>
-              <p style={{ fontSize: 12, color: "rgba(255,241,247,0.5)", marginTop: 4 }}>{s.label}</p>
+              <p style={{ fontFamily: "var(--font-display)", fontSize: 28, color: "var(--crimson-400)", lineHeight: 1 }}>{s.value}</p>
+              <p style={{ fontSize: 12, color: "rgba(234,242,242,0.5)", marginTop: 4 }}>{s.label}</p>
             </div>
           ))}
         </div>

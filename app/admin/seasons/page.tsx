@@ -29,7 +29,7 @@ export default function AdminSeasonsPage() {
           quarter: parseInt(form.quarter),
           starts_at: form.starts_at || null,
           ends_at: form.ends_at || null,
-          total_weeks: 9,
+          total_weeks: 8,
           is_active: false,
         },
       ]);
@@ -80,7 +80,7 @@ export default function AdminSeasonsPage() {
               <input className="input-mo" type="date" value={form.starts_at} onChange={(e) => setForm((f) => ({ ...f, starts_at: e.target.value }))} />
             </div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-              <label style={{ fontSize: 12, fontWeight: 600, color: "var(--ink-800)" }}>Ends (Week 9)</label>
+              <label style={{ fontSize: 12, fontWeight: 600, color: "var(--ink-800)" }}>Ends (Week 8)</label>
               <input className="input-mo" type="date" value={form.ends_at} onChange={(e) => setForm((f) => ({ ...f, ends_at: e.target.value }))} />
             </div>
           </div>

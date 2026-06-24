@@ -174,7 +174,7 @@ export default function TableDetailClient({ table: initialTable, currentUserId, 
           </button>
         )}
         {canCancel && (
-          <button className="btn btn-ghost" onClick={handleCancel} disabled={loading === "cancel"} style={{ justifyContent: "center", padding: "13px", color: "var(--danger)", borderColor: "rgba(210,72,63,0.3)" }}>
+          <button className="btn btn-ghost" onClick={handleCancel} disabled={loading === "cancel"} style={{ justifyContent: "center", padding: "13px", color: "var(--danger)", borderColor: "rgba(200,16,46,0.3)" }}>
             {loading === "cancel" ? "Cancelling…" : "Cancel my spot"}
           </button>
         )}
@@ -191,7 +191,7 @@ export default function TableDetailClient({ table: initialTable, currentUserId, 
         {scoreSubmission && (
           <div style={{
             background: scoreSubmission.status === "approved" ? "var(--success-bg)" : "var(--warning-bg)",
-            border: `1px solid ${scoreSubmission.status === "approved" ? "var(--lime-200)" : "var(--butter-300)"}`,
+            border: `1px solid ${scoreSubmission.status === "approved" ? "var(--lime-200)" : "var(--crimson-100)"}`,
             borderRadius: "var(--radius-sm)",
             padding: "10px 14px",
             fontSize: 13,

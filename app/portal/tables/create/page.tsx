@@ -72,10 +72,10 @@ export default function CreateTablePage() {
       </p>
 
       <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-        {field("Week number (1–9)", true,
+        {field("Week number (1–8)", true,
           <select className="input-mo" value={form.week_number} onChange={(e) => setForm((f) => ({ ...f, week_number: e.target.value }))}>
             <option value="">Select week</option>
-            {[1,2,3,4,5,6,7,8,9].map((w) => <option key={w} value={w}>Week {w}</option>)}
+            {[1,2,3,4,5,6,7,8].map((w) => <option key={w} value={w}>Week {w}</option>)}
           </select>
         )}
         {field("Date", true,
