@@ -5,12 +5,12 @@ import PageBanner from "@/components/marketing/PageBanner";
 import { ChevronDown } from "lucide-react";
 
 const STEPS = [
-  { n: "01", title: "Register for your city's season", body: "Choose your city, fill out your registration, and complete payment. Each season runs 8 weeks — one game per week." },
-  { n: "02", title: "Get access to the player portal", body: "Once you're paid and confirmed, you'll receive login credentials for the private player portal. This is where everything lives." },
+  { n: "01", title: "Register for your city's series", body: "Choose your city, fill out your registration, and complete payment. Each series runs 8 weeks — one game per week." },
+  { n: "02", title: "Get access to the player portal", body: "Once you're paid and confirmed, you'll receive login credentials for the private player portal. This is where your tables and standings live." },
   { n: "03", title: "Sign up for your weekly table", body: "Each week, browse open tables in your city — or create one. Pick your date, time, and location. You fill seat 1 automatically." },
   { n: "04", title: "Play your game", body: "Your foursome meets at the chosen spot. Play a full session of American mahjong. The table creator records the result." },
-  { n: "05", title: "Submit the score", body: "After the game, the table creator enters each player's wins and points. Scores go to admin for review." },
-  { n: "06", title: "Watch your standings update", body: "Once an admin approves the score, your points land on the city leaderboard. Repeat every week for 8 weeks." },
+  { n: "05", title: "Submit the score", body: "After the game, the table creator enters each player's score. Scores are visible in the portal immediately and update the leaderboard within the series." },
+  { n: "06", title: "Watch your standings update", body: "Your average score updates as the series progresses. Keep playing each week to climb the city leaderboard." },
 ];
 
 const FAQS = [
@@ -19,7 +19,7 @@ const FAQS = [
   { q: "What if a player cancels?", a: "You can cancel your own seat up to 24 hours before game time. Within 24 hours, the seat is locked." },
   { q: "Who submits the score?", a: "Only the table creator can submit scores. All four seated players can see the pending score in their portal." },
   { q: "What mahjong rules do you use?", a: "The Mahjong Open uses American mahjong rules (NMJL card). All skill levels are welcome." },
-  { q: "Can I join mid-season?", a: "Registration closes at the start of each season. Keep an eye out for early-bird registration for the next quarter." },
+  { q: "Can I join mid-series?", a: "Registration closes at the start of each series. Keep an eye out for early-bird registration for the next 8-week cycle." },
 ];
 
 export default function HowItWorksPage() {
@@ -30,16 +30,16 @@ export default function HowItWorksPage() {
       <PageBanner
         eyebrow="Learn the league"
         headline={<>The mahjong league that <em className="serif-italic">keeps moving</em></>}
-        lead="Nine weeks, one city, unlimited tables. Here's exactly how the scramble works."
+        lead="Eight weeks, one city, unlimited tables. Here's exactly how the series works."
       />
 
       {/* The basics */}
       <section style={{ padding: "72px 0" }}>
         <div className="container-mo" style={{ maxWidth: 800 }}>
           <p className="eyebrow" style={{ marginBottom: 16 }}>The basics</p>
-          <h2 className="h2" style={{ marginBottom: 24 }}>One season. Nine weeks. <em className="serif-italic">Your pace.</em></h2>
+          <h2 className="h2" style={{ marginBottom: 24 }}>One series. Eight weeks. <em className="serif-italic">Your pace.</em></h2>
           <p className="body-lg" style={{ marginBottom: 20 }}>
-            The Mahjong Open runs city-by-city on a seasonal schedule. Each season is exactly 8 weeks long. When you register, you&rsquo;re in for the full season in your city — but you choose which weeks to play.
+            The Mahjong Open runs city-by-city on a series schedule. Each series is exactly 8 weeks long. When you register, you&rsquo;re in for the full series in your city — but you choose which weeks to play.
           </p>
           <p style={{ fontSize: 16, color: "var(--ink-700)", lineHeight: 1.65 }}>
             Every week, paid players in your city can create or join a 4-person table. You pick the day, time, and location. The game happens. The creator submits the score. An admin approves it. Your points land on the leaderboard. Repeat.
@@ -51,7 +51,7 @@ export default function HowItWorksPage() {
       <section style={{ padding: "72px 0", background: "var(--pink-wash)" }}>
         <div className="container-mo">
           <p className="eyebrow" style={{ marginBottom: 16 }}>Step by step</p>
-          <h2 className="h2" style={{ marginBottom: 48 }}>How a season <em className="serif-italic">actually works</em></h2>
+          <h2 className="h2" style={{ marginBottom: 48 }}>How a series <em className="serif-italic">actually works</em></h2>
           <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
             {STEPS.map((step) => (
               <div
@@ -96,12 +96,12 @@ export default function HowItWorksPage() {
       <section style={{ padding: "72px 0" }}>
         <div className="container-mo" style={{ maxWidth: 800 }}>
           <p className="eyebrow" style={{ marginBottom: 16 }}>Scoring &amp; standings</p>
-          <h2 className="h2" style={{ marginBottom: 24 }}>Points stack <em className="serif-italic">all season long</em></h2>
+          <h2 className="h2" style={{ marginBottom: 24 }}>Averages decide the leaderboard</h2>
           <p style={{ fontSize: 16, color: "var(--ink-700)", lineHeight: 1.65, marginBottom: 16 }}>
-            After each game, the table creator submits results — wins and points per player. An admin reviews and approves the score. Once approved, points are added to the city leaderboard.
+            After each game, the table creator submits results — wins and points per player. Scores are visible in the portal immediately and update the leaderboard within the series.
           </p>
           <p style={{ fontSize: 16, color: "var(--ink-700)", lineHeight: 1.65 }}>
-            Standings show rank, total wins, total points, and total games played. The player with the most points at the end of the 8-week season wins the season in their city.
+            Standings rank players by average score across all games played in the 8-week series. Keep playing to improve your position and finish strong.
           </p>
         </div>
       </section>

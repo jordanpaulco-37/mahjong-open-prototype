@@ -20,7 +20,7 @@ const quicksand = Quicksand({
 export const metadata: Metadata = {
   title: "The Mahjong Open",
   description:
-    "A city-based seasonal scramble league for women who love the game. Join your city's season.",
+    "A city-based Mahjong Game League for women who love the game. Join your city's series.",
 };
 
 export default function RootLayout({

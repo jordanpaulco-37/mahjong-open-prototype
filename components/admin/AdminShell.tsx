@@ -14,7 +14,6 @@ const NAV_ITEMS = [
   { label: "Players", href: "/admin/players", icon: Users },
   { label: "Tables", href: "/admin/tables", icon: Table2 },
   { label: "Scores", href: "/admin/scores", icon: ClipboardCheck },
-  { label: "Announcements", href: "/admin/announcements", icon: Megaphone },
 ];
 
 export default function AdminShell({ children, adminName }: { children: React.ReactNode; adminName: string }) {

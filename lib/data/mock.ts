@@ -49,6 +49,40 @@ export const MOCK_SEASONS = [
   },
 ];
 
+export const MOCK_ADMIN_CONSOLE = {
+  metrics: {
+    registrationsThisSeries: 92,
+    registrationsAllTime: 240,
+    activePlayers: 68,
+    revenueThisMonth: 6400,
+    revenueThisSeries: 12800,
+    activeCities: 2,
+    tableFillRate: 0.76,
+  },
+  roles: [
+    { role: "Admin", detail: "4 co-equal accounts · full access" },
+    { role: "Commissioner", detail: "One per city · city-scoped tools" },
+    { role: "Player", detail: "Portal-only experience" },
+  ],
+  scopes: [
+    { label: "Current scope", value: "All cities" },
+    { label: "Your role", value: "Admin" },
+    { label: "Preview mode", value: "Console" },
+  ],
+  referralLink: "https://themahjongopen.com/r/jordan-chen",
+  referrals: [
+    { id: "ref-1", name: "Morgan Park", type: "Player referral", city: "Hattiesburg", status: "Active" },
+    { id: "ref-2", name: "Casey Huang", type: "Player referral", city: "Hattiesburg", status: "Pending" },
+    { id: "ref-3", name: "Avery Soo", type: "City referral", city: "Jackson", status: "Pending" },
+  ],
+  topFinisher: {
+    player: "Morgan Park",
+    week: 4,
+    badge: "Top finisher",
+  },
+  sampleLabel: "Sample data only",
+};
+
 export const MOCK_MEMBERSHIP = {
   id: "mem-1",
   user_id: "user-demo",

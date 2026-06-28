@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Bell, LogOut, ShieldCheck } from "lucide-react";
+import { LogOut, ShieldCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 
@@ -10,11 +10,10 @@ interface PortalAppBarProps {
   title: string;
   isAdmin?: boolean;
   onToggleAdmin?: () => void;
-  hasNotifications?: boolean;
   userName?: string;
 }
 
-export default function PortalAppBar({ title, isAdmin, onToggleAdmin, hasNotifications, userName }: PortalAppBarProps) {
+export default function PortalAppBar({ title, isAdmin, onToggleAdmin, userName }: PortalAppBarProps) {
   const [popoverOpen, setPopoverOpen] = useState(false);
   const router = useRouter();
 
@@ -36,18 +35,6 @@ export default function PortalAppBar({ title, isAdmin, onToggleAdmin, hasNotific
       </div>
 
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-        {/* Bell */}
-        <button
-          onClick={() => router.push("/portal/announcements")}
-          style={{ background: "none", border: "none", cursor: "pointer", position: "relative", padding: 4 }}
-          aria-label="Announcements"
-        >
-          <Bell size={20} color="var(--ink-700)" />
-          {hasNotifications && (
-            <span style={{ position: "absolute", top: 4, right: 4, width: 7, height: 7, borderRadius: "50%", background: "var(--pink-400)", border: "1.5px solid #fff" }} />
-          )}
-        </button>
-
         {/* Avatar */}
         <div style={{ position: "relative" }}>
           <button

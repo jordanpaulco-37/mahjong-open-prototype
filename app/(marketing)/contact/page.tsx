@@ -8,8 +8,8 @@ const FAQS = [
   { q: "How do I register for a city?", a: "Click Register on our home page or any page to open the registration modal. Choose your city and preferred day, complete payment, and you're in." },
   { q: "I forgot my portal password — what do I do?", a: "Go to the Sign In page and click 'Forgot password.' We'll email you a reset link." },
   { q: "Can I transfer my registration to a different city?", a: "City transfers are handled case by case. Reach out via the contact form and we'll do our best to help." },
-  { q: "I submitted a score but it's not showing up — why?", a: "Scores show immediately as 'pending' in all four players' portals. They appear in the standings only once an admin approves them, which typically happens within 24–48 hours." },
-  { q: "How do refunds work?", a: "Refunds are available up to 7 days before the season starts. Contact us via the form below." },
+  { q: "I submitted a score but it's not showing up — why?", a: "Scores show immediately as pending in all four players' portals. They appear in the standings once processed, usually within 24–48 hours." },
+  { q: "How do refunds work?", a: "Refunds are available up to 7 days before the series starts. Contact us via the form below." },
 ];
 
 export default function ContactPage() {
@@ -38,7 +38,7 @@ export default function ContactPage() {
       <PageBanner
         eyebrow="Get in touch"
         headline={<>Let&rsquo;s <em className="serif-italic">talk tiles</em></>}
-        lead="Questions about registration, your city, or the league? We're happy to help."
+        lead="Questions about registration, your city, or the series? We're happy to help."
       />
 
       {/* FAQ */}

@@ -133,7 +133,7 @@ export default function RegisterModal({ open, onClose }: RegisterModalProps) {
 
         {step === "form" ? (
           <>
-            <p className="eyebrow" style={{ marginBottom: 8 }}>Spring Season · 2026</p>
+            <p className="eyebrow" style={{ marginBottom: 8 }}>Series One · 2026</p>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
@@ -251,7 +251,7 @@ export default function RegisterModal({ open, onClose }: RegisterModalProps) {
               You&rsquo;re on the list!
             </h2>
             <p style={{ fontSize: 16, color: "var(--ink-700)", lineHeight: 1.6, marginBottom: 28 }}>
-              We&rsquo;ve saved your spot for the Spring 2026 season. Check your inbox for next steps — including how to complete your registration and access the player portal.
+              We&rsquo;ve saved your spot for Series One — 2026. Check your inbox for next steps, including how to complete registration and access the player portal.
             </p>
             <button className="btn btn-primary" onClick={handleClose} style={{ justifyContent: "center" }}>
               Done

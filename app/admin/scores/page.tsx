@@ -35,7 +35,7 @@ export default async function AdminScoresPage() {
             <div key={s.id} style={{ padding: "12px 18px", borderBottom: i < approved.length - 1 ? "1px solid var(--hair-200)" : "none", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
                 <p style={{ fontSize: 14, fontWeight: 500, color: "var(--ink-900)" }}>
-                  Week {s.scramble_tables?.week_number} · {s.scramble_tables?.location_name}
+                  Round {s.scramble_tables?.week_number} · {s.scramble_tables?.location_name}
                 </p>
                 <p style={{ fontSize: 12, color: "var(--ink-500)" }}>
                   {s.scramble_tables && new Date(s.scramble_tables.table_date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}

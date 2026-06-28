@@ -30,7 +30,7 @@ export default async function TablesPage() {
 
       {openTables.length === 0 && (
         <div style={{ textAlign: "center", padding: "48px 24px", color: "var(--ink-500)" }}>
-          <p style={{ fontSize: 16, marginBottom: 16 }}>No open tables yet this week.</p>
+          <p style={{ fontSize: 16, marginBottom: 16 }}>No open tables right now.</p>
           <Link href="/portal/tables/create" className="btn btn-primary" style={{ fontSize: 14, display: "inline-flex" }}>
             Create the first one →
           </Link>
@@ -40,7 +40,7 @@ export default async function TablesPage() {
       {Object.entries(byWeek).map(([week, weekTables]) => (
         <div key={week} style={{ marginBottom: 32 }}>
           <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--lime-600)", marginBottom: 12 }}>
-            Week {week}
+            Round {week}
           </p>
           <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
             {weekTables.map((table) => {

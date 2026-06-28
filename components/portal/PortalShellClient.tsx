@@ -12,7 +12,7 @@ const PAGE_TITLES: Record<string, string> = {
   "/portal/my-tables": "My Tables",
   "/portal/standings": "Standings",
   "/portal/scores": "Submit Score",
-  "/portal/announcements": "Announcements",
+  "/portal/directory": "Directory",
   "/portal/payment": "Complete Payment",
 };
 
@@ -48,7 +48,6 @@ export default function PortalShellClient({
         title={isAdmin ? "Admin View" : title}
         isAdmin={isAdmin}
         onToggleAdmin={isAdminRole ? () => setIsAdmin((v) => !v) : undefined}
-        hasNotifications
         userName={userName}
       />
       <div className="portal-content">

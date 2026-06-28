@@ -11,7 +11,7 @@ function greeting(name: string) {
 
 export default async function PortalDashboard() {
   const user = getDemoUser();
-  const { nextSeat, standing, pinned } = await getDashboardData(user.id);
+  const { nextSeat, standing } = await getDashboardData(user.id);
   const nextTable = nextSeat?.scramble_tables ?? null;
 
   return (
@@ -33,7 +33,7 @@ export default async function PortalDashboard() {
             }}
           >
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(234,242,242,0.7)", marginBottom: 12 }}>
-              Week {nextTable.week_number} · Your next table
+              Round {nextTable.week_number} · Your next table
             </p>
             <div style={{ display: "flex", gap: 20, flexWrap: "wrap" }}>
               <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -64,7 +64,7 @@ export default async function PortalDashboard() {
           }}
         >
           <p style={{ fontFamily: "var(--font-display)", fontSize: 18, color: "var(--ink-900)", marginBottom: 8 }}>No upcoming table</p>
-          <p style={{ fontSize: 14, color: "var(--ink-500)", marginBottom: 16 }}>Join or create a table for this week.</p>
+          <p style={{ fontSize: 14, color: "var(--ink-500)", marginBottom: 16 }}>Join or create a table for this series.</p>
           <Link href="/portal/tables" className="btn btn-primary" style={{ fontSize: 14, display: "inline-flex" }}>
             Browse open tables
           </Link>
@@ -96,7 +96,7 @@ export default async function PortalDashboard() {
       </div>
 
       {/* Quick actions */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 24 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 20 }}>
         <Link href="/portal/tables" className="btn btn-ghost" style={{ justifyContent: "center", fontSize: 14, borderRadius: "var(--radius-lg)", padding: "12px" }}>
           <CalendarDays size={16} /> Open tables
         </Link>
@@ -111,16 +111,17 @@ export default async function PortalDashboard() {
         </Link>
       </div>
 
-      {/* Pinned announcement */}
-      {pinned && (
-        <div style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", padding: "16px 18px", boxShadow: "var(--shadow-xs)" }}>
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--lime-600)", marginBottom: 6 }}>
-            Pinned announcement
-          </p>
-          <p style={{ fontSize: 15, fontWeight: 600, color: "var(--ink-900)", marginBottom: 6 }}>{pinned.title}</p>
-          <p style={{ fontSize: 14, color: "var(--ink-700)", lineHeight: 1.5 }}>{pinned.body}</p>
+      <div style={{ background: "var(--pink-50)", border: "1px solid var(--pink-100)", borderRadius: "var(--radius-lg)", padding: "14px 16px", display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, marginBottom: 12 }}>
+        <div>
+          <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--pink-600)", marginBottom: 4 }}>Handbook</p>
+          <p style={{ fontSize: 13, color: "var(--ink-700)", margin: 0 }}>Review the latest Mahjong Open rulebook before your next game.</p>
         </div>
-      )}
+        <a href="/rulebook" className="btn btn-primary" style={{ fontSize: 13, padding: "10px 14px", whiteSpace: "nowrap" }}>
+          Rulebook
+        </a>
+      </div>
+
+      {/* Pinned announcement */}
     </div>
   );
 }

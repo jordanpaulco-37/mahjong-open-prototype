@@ -91,7 +91,7 @@ export default function TableDetailClient({ table: initialTable, currentUserId, 
     <>
       <div style={{ marginBottom: 20 }}>
         <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}>
-          <span className="badge badge-mute">Week {initialTable.week_number}</span>
+          <span className="badge badge-mute">Round {initialTable.week_number}</span>
           <span className={`badge ${STATUS_COLORS[initialTable.status] ?? "badge-mute"}`}>{initialTable.status}</span>
           {initialTable.skill_level && (
             <span className={`badge ${SKILL_COLORS[initialTable.skill_level] ?? "badge-mute"}`}>{initialTable.skill_level}</span>
@@ -178,6 +178,25 @@ export default function TableDetailClient({ table: initialTable, currentUserId, 
             {loading === "cancel" ? "Cancelling…" : "Cancel my spot"}
           </button>
         )}
+        <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
+          <a
+            href={createCalendarHref(tableDateTime, initialTable)}
+            download={`mahjong-table-${initialTable.id}.ics`}
+            className="btn btn-ghost"
+            style={{ justifyContent: "center", padding: "13px" }}
+          >
+            Add to calendar
+          </a>
+          <a
+            href={createGoogleCalendarLink(tableDateTime, initialTable)}
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-ghost"
+            style={{ justifyContent: "center", padding: "13px" }}
+          >
+            Google Calendar
+          </a>
+        </div>
         {myActiveSeat && !canCancel && !isCreator && (
           <div style={{ fontSize: 13, color: "var(--ink-500)", textAlign: "center", padding: "8px" }}>
             Cancellation window has closed (within 24 hours of game time).
@@ -204,4 +223,35 @@ export default function TableDetailClient({ table: initialTable, currentUserId, 
       </div>
     </>
   );
+}
+
+function formatDateForCalendar(date: Date) {
+  return date.toISOString().replace(/[-:]/g, "").split(".")[0];
+}
+
+function createCalendarHref(date: Date, table: TableDetailClientProps["table"]) {
+  const endDate = new Date(date.getTime() + 2 * 60 * 60 * 1000);
+  const ics = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//The Mahjong Open//EN",
+    "BEGIN:VEVENT",
+    `UID:${table.id}@themahjongopen.com`,
+    `DTSTAMP:${formatDateForCalendar(new Date())}Z`,
+    `DTSTART:${formatDateForCalendar(date)}Z`,
+    `DTEND:${formatDateForCalendar(endDate)}Z`,
+    `SUMMARY:Mahjong Game League table at ${table.location_name}`,
+    `DESCRIPTION:Skill level: ${table.skill_level ?? "Open"}\\nLocation: ${table.location_name}${table.location_address ? `\\n${table.location_address}` : ""}`,
+    `LOCATION:${table.location_address ?? table.location_name}`,
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].join("\r\n");
+  return `data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}`;
+}
+
+function createGoogleCalendarLink(date: Date, table: TableDetailClientProps["table"]) {
+  const endDate = new Date(date.getTime() + 2 * 60 * 60 * 1000);
+  const format = (d: Date) => d.toISOString().replace(/[-:]/g, "").split(".")[0];
+  const details = `Skill level: ${table.skill_level ?? "Open"} - ${table.location_name}${table.location_address ? `, ${table.location_address}` : ""}`;
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(`Mahjong Game League table at ${table.location_name}`)}&dates=${format(date)}/${format(endDate)}&details=${encodeURIComponent(details)}&location=${encodeURIComponent(table.location_address ?? table.location_name)}&sf=true&output=xml`;
 }

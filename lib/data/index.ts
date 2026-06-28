@@ -12,6 +12,7 @@ import {
   MOCK_PLAYERS,
   MOCK_CITIES,
   MOCK_SEASONS,
+  MOCK_ADMIN_CONSOLE,
 } from "./mock";
 
 // ── Portal: dashboard ─────────────────────────────────────────────────────────
@@ -77,6 +78,30 @@ export async function getStandings() {
   return MOCK_STANDINGS;
 }
 
+export async function getWeeklyTopScores() {
+  const weekly: Record<number, { player: string; points: number; tableDate: string; location: string; week: number }[]> = {};
+
+  MOCK_SCORE_SUBMISSIONS.filter((s) => s.status === "approved").forEach((submission) => {
+    const week = submission.scramble_tables.week_number;
+    const entries = submission.score_submission_players.map((player) => ({
+      player: player.profiles?.full_name ?? "Player",
+      points: player.points,
+      tableDate: submission.scramble_tables.table_date,
+      location: submission.scramble_tables.location_name,
+      week,
+    }));
+
+    weekly[week] = [...(weekly[week] ?? []), ...entries];
+  });
+
+  return Object.entries(weekly)
+    .map(([week, entries]) => ({
+      week: Number(week),
+      top: entries.sort((a, b) => b.points - a.points).slice(0, 2),
+    }))
+    .sort((a, b) => a.week - b.week);
+}
+
 export async function getMembership(userId: string) {
   return userId === DEMO_USER_ID ? MOCK_MEMBERSHIP : null;
 }
@@ -113,7 +138,11 @@ export async function getPlayersAtTable(tableId: string) {
     .map((s) => ({ user_id: s.user_id, name: s.profiles?.full_name ?? "Player", wins: 0, points: 0 }));
 }
 
-// ── Admin: dashboard ──────────────────────────────────────────────────────────
+// ── Admin: console preview data ──────────────────────────────────────────────
+
+export async function getAdminConsoleData() {
+  return MOCK_ADMIN_CONSOLE;
+}
 
 export async function getAdminDashboardData() {
   const totalPlayers = MOCK_PLAYERS.filter((m) => m.paid_status === "paid").length;

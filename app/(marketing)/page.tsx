@@ -10,7 +10,7 @@ const FORMAT_STEPS = [
   {
     icon: Users,
     title: "Register for your city",
-    body: "Join the season in your city. One seasonal registration covers your full 8-week scramble.",
+    body: "Join the series in your city. One registration covers your full 8-week League.",
   },
   {
     icon: CalendarDays,
@@ -24,13 +24,13 @@ const FORMAT_STEPS = [
   },
   {
     icon: Trophy,
-    title: "Earn points all season",
-    body: "Scores are submitted after each game and approved by league admins. Points stack across all 8 weeks.",
+    title: "Track your average score",
+    body: "Scores are self-reported after each game. Standings reflect average score over the full series.",
   },
   {
     icon: Repeat2,
     title: "Climb the standings",
-    body: "Track your rank on the city leaderboard. The season finale celebrates your city's top players.",
+    body: "Track your rank on the city leaderboard. The series finale celebrates your city's top players.",
   },
   {
     icon: MapPin,
@@ -43,19 +43,19 @@ const EVENTS = [
   {
     title: "Spring Kickoff Tea",
     date: "Mar 14 · Opening",
-    body: "Kick off the season with an opening tea, introductions, and your first game of the quarter.",
+    body: "Kick off the series with an opening tea, introductions, and your first table of the 8-week run.",
     color: "var(--peri-100)",
   },
   {
     title: "The Blossom Bracket",
-    date: "Apr 18 · Mid-season",
-    body: "Mid-season mixer bringing players from across the city together for a special afternoon of play.",
+    date: "Apr 18 · Mid-series",
+    body: "Mid-series mixer bringing players from across the city together for a special afternoon of play.",
     color: "var(--lime-wash)",
   },
   {
     title: "The Spring Soirée",
     date: "May 23 · Finale",
-    body: "Season closing celebration. Final standings revealed, awards given, and the best table wins.",
+    body: "Series closing celebration. Final standings revealed, awards given, and the best table wins.",
     color: "var(--pink-wash)",
   },
 ];
@@ -80,13 +80,13 @@ export default function HomePage() {
           <div className="hero-grid">
             {/* Copy */}
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 24 }}>
-              <p className="eyebrow">Mahjong Scramble League</p>
+              <p className="eyebrow">Mahjong Game League</p>
               <h1 className="h1">
                 Game on,{" "}
                 <em className="serif-italic">ladies.</em>
               </h1>
               <p className="body-lg" style={{ maxWidth: 480 }}>
-                The Mahjong Open is a city-based seasonal scramble league. Register once, play unlimited matches for 8 weeks, and climb your city&rsquo;s leaderboard.
+                The Mahjong Open is a city-based Mahjong Game League. Register once, play unlimited matches for 8 weeks, and climb your city&rsquo;s leaderboard.
               </p>
               <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <button
@@ -105,7 +105,7 @@ export default function HomePage() {
                 {[
                   { num: "240+", label: "Members" },
                   { num: "12", label: "Weekly tables" },
-                  { num: "4", label: "Seasons a year" },
+                  { num: "5", label: "Series a year" },
                 ].map((s) => (
                   <div key={s.label}>
                     <p
@@ -141,13 +141,12 @@ export default function HomePage() {
                 }}
               >
                 <Image
-                  src="/images/hero-photo.jpg"
-                  alt="Players at a mahjong table"
+                  src="/assets/mark-primary.svg"
+                  alt="Mahjong Open logo"
                   fill
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: "contain", padding: 40, opacity: 0.9 }}
                   priority
                   sizes="(max-width: 900px) 100vw, 50vw"
-                  onError={() => {}}
                 />
                 {/* Placeholder visible when no photo */}
                 <div
@@ -218,12 +217,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Format — How the scramble works */}
+      {/* Format — How the league works */}
       <section style={{ padding: "72px 0", background: "var(--bg)" }}>
         <div className="container-mo">
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p className="eyebrow" style={{ marginBottom: 12 }}>How it works</p>
-            <h2 className="h2">The scramble,{" "}<em className="serif-italic">explained</em></h2>
+            <h2 className="h2">The league,{" "}<em className="serif-italic">explained</em></h2>
           </div>
           <div className="format-grid">
             {FORMAT_STEPS.map((step) => {
@@ -278,14 +277,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Seasons & Events */}
+      {/* Series & Events */}
       <section style={{ padding: "72px 0", background: "var(--pink-wash)" }}>
         <div className="container-mo">
           <div style={{ textAlign: "center", marginBottom: 48 }}>
-            <p className="eyebrow" style={{ marginBottom: 12 }}>Seasons &amp; events</p>
-            <h2 className="h2">A calendar worth{" "}<em className="serif-italic">dressing up</em> for</h2>
+            <p className="eyebrow" style={{ marginBottom: 12 }}>Series schedule</p>
+            <h2 className="h2">A calendar worth planning for</h2>
             <p className="body-lg" style={{ marginTop: 16, maxWidth: 560, marginInline: "auto" }}>
-              Each season has three signature events. Show up, play your best, and celebrate in style.
+              Each series runs for 8 weeks of open play. Pick your tables, host where you like, and keep your calendar full.
             </p>
           </div>
           <div className="events-grid">
@@ -410,7 +409,7 @@ export default function HomePage() {
                 <em style={{ color: "#fff" }}>Save your spot.</em>
               </h2>
               <p style={{ fontSize: 15, color: "rgba(234,242,242,0.8)", lineHeight: 1.6 }}>
-                Registration includes your full 8-week season, access to all city tables, and a spot on the leaderboard.
+                Registration includes your full 8-week series, access to all city tables, and a spot on the leaderboard.
               </p>
             </div>
 
@@ -425,13 +424,13 @@ export default function HomePage() {
                   padding: "20px 24px",
                 }}
               >
-                <p style={{ fontSize: 13, fontWeight: 600, color: "#fff", marginBottom: 12 }}>Your season includes:</p>
+                <p style={{ fontSize: 13, fontWeight: 600, color: "#fff", marginBottom: 12 }}>Your series includes:</p>
                 <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: 8 }}>
                   {[
                     "8 weekly game nights",
                     "Access to all open tables in your city",
                     "Live standings & score tracking",
-                    "League announcements & events",
+                    "Series schedule & event highlights",
                   ].map((item) => (
                     <li key={item} style={{ fontSize: 14, color: "rgba(234,242,242,0.85)", display: "flex", gap: 8, alignItems: "flex-start" }}>
                       <span style={{ color: "#fff", marginTop: 2, flexShrink: 0 }}>✓</span>

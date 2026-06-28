@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Trophy, CalendarDays, ClipboardList, Bell } from "lucide-react";
+import { Home, Trophy, CalendarDays, ClipboardList, Users } from "lucide-react";
 
 const TABS = [
   { label: "Home", href: "/portal", icon: Home },
   { label: "Standings", href: "/portal/standings", icon: Trophy },
   { label: "Schedule", href: "/portal/tables", icon: CalendarDays },
   { label: "Scores", href: "/portal/scores", icon: ClipboardList },
-  { label: "Alerts", href: "/portal/announcements", icon: Bell },
+  { label: "Directory", href: "/portal/directory", icon: Users },
 ];
 
 export default function BottomTabBar() {
