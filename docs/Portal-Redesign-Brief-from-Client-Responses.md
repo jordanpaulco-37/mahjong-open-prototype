@@ -31,7 +31,7 @@ The prototype was built around a **weekly, cumulative-points, admin-approved** l
 5. **Trim the surface area.** Remove the *Scramble Events* marketing tab and the *Announcements* portal feature; add a *Member Directory* and *Add to Calendar*.
 6. **Rename throughout.** "Scramble" → **Mahjong Game League**; "Season" → **Series** (each 8-week period — e.g., "The Mahjong Open — 2026 — Series One"). See §1.5.
 
-Plus: launch is **Hattiesburg only** (with admins able to add cities as more commissioners sign on), pricing is a fixed **$80 / 8 weeks**, and several pages await copy the client will email.
+Plus: launch is **Ocean Springs, MS** (possibly with **Meridian, MS** as a second launch city — not yet final; admins can add cities anytime), pricing is a fixed **$80 / 8 weeks**, and several pages await copy the client will email.
 
 ---
 
@@ -60,7 +60,7 @@ Two brand-wide wording changes. Apply to **all user-facing copy** (site + portal
 - Series (currently coded as "seasons") are named `Spring 2026`, quarter-based (`quarter` 1–4), `total_weeks: 8` (`MOCK_SEASONS`, schema `seasons`).
 
 **Client wants**
-- **Launch with Hattiesburg only** shown as the active city in the portal, with admins able to **easily add a new city/state** as more city commissioners sign up.
+- **Launch with Ocean Springs, MS** (possibly also **Meridian, MS** — not yet final) as the active launch city/cities, with admins able to **easily add a new city/state** as more city commissioners sign up. *(The launch city is a data seed — trivially changed anytime, even after go-live.)*
 - Year-1 target cities (add as commissioners come on): Meridian, Ocean Springs, Hattiesburg, Madison, Starkville, Oxford (all MS). Expansion: FL, AL, LA.
 - **5 series per year**, each **8 weeks**. First series: **"The Mahjong Open — 2026 — Series One," Aug 17 – Oct 11.**
 - Brand voice: *hospitable, welcoming, flexible*; tone *warm & welcoming*.
@@ -69,11 +69,11 @@ Two brand-wide wording changes. Apply to **all user-facing copy** (site + portal
 - Demo cities/series names are placeholders. The `quarter` (1–4) field can't represent 5 series/year. Nothing currently restricts the portal to a single launch city — but the data model and admin Cities page already support multiple cities, so this is a seeding/display concern, not a rebuild.
 
 **Recommended change — single launch city, easy to add more**
-- Yes, this is straightforward *because cities are already data-driven.* Seed **only Hattiesburg** with `is_active = true` in `lib/data/mock.ts` / `cities` (omit the others, or set `is_active = false`). Ensure the portal's city selector/queries show only **active** cities, so today it displays Hattiesburg alone.
+- Yes, this is straightforward *because cities are already data-driven.* Seed **Ocean Springs** (and optionally **Meridian**) with `is_active = true` in `lib/data/mock.ts` / `cities` (others omitted or `is_active = false`). Ensure the portal's city selector/queries show only **active** cities. **The launch city is just data — changing it later (swap/add/remove a city) is a one-row edit, even after go-live.**
 - Admins add a city through the existing **`app/admin/cities/page.tsx`**: wire its form to insert a `cities` row (`name`, `state`, `slug`, `is_active = true`). New active cities then appear automatically — **no per-city code change.**
 - Pair each new city with its Commissioner (see §7) and its own Series.
 - Series naming: replace quarter-based "Spring 2026" with the `<brand> — <year> — Series <N>` convention. In `supabase/migrations/001_initial_schema.sql`, drop/replace the `quarter` CHECK on `seasons` (use a `series_number integer`); keep `total_weeks default 8`. Add a `commission_rate` later (see §7).
-- Seed the first series: "The Mahjong Open — 2026 — Series One," Aug 17 – Oct 11, for Hattiesburg.
+- Seed the first series: "The Mahjong Open — 2026 — Series One," Aug 17 – Oct 11, for the launch city (Ocean Springs).
 
 ---
 
@@ -277,7 +277,7 @@ Apply to `supabase/migrations/` (new migration, don't edit 001 in place once liv
 5. `score_submissions`: **remove** `status/approved_by/approved_at/admin_notes` (no approval). `score_submission_players`: add `jokerless boolean`, `self_drawn boolean` (or a bonus column) per game.
 6. `standings`: add `average_score numeric`, `games_played integer`, `best_score integer`; rank by `average_score DESC, best_score DESC`.
 7. `announcements`: drop (feature removed).
-8. Seed **Hattiesburg only** (active) and the first series — **"The Mahjong Open — 2026 — Series One," Aug 17 – Oct 11**; other cities added later via the admin Cities page.
+8. Seed the launch city — **Ocean Springs** (active), possibly also **Meridian** — and the first series — **"The Mahjong Open — 2026 — Series One," Aug 17 – Oct 11**; other cities added later via the admin Cities page.
 
 ---
 

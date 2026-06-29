@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { X, Check } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
 
 interface RegisterModalProps {
   open: boolean;
@@ -9,18 +10,30 @@ interface RegisterModalProps {
 }
 
 type Step = "form" | "success";
-type Day = "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday";
 
-const DAYS: Day[] = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+type CityOption = {
+  id: string;
+  name: string;
+  state: string | null;
+};
+
+type SeriesOption = {
+  id: string;
+  name: string;
+};
 
 export default function RegisterModal({ open, onClose }: RegisterModalProps) {
   const [step, setStep] = useState<Step>("form");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [cities, setCities] = useState<CityOption[]>([]);
+  const [currentSeries, setCurrentSeries] = useState<SeriesOption | null>(null);
   const [form, setForm] = useState({
     full_name: "",
     email: "",
-    preferred_day: "" as Day | "",
+    phone: "",
+    city_id: "",
+    series_id: "",
     skill_level: "" as "beginner" | "intermediate" | "advanced" | "",
   });
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -40,9 +53,50 @@ export default function RegisterModal({ open, onClose }: RegisterModalProps) {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+
+    let active = true;
+    const supabase: any = createClient();
+
+    async function loadCatalog() {
+      const [{ data: cityData, error: cityError }, { data: seriesData, error: seriesError }] = await Promise.all([
+        supabase.from("cities").select("id, name, state").eq("is_active", true).order("name", { ascending: true }),
+        supabase.from("series").select("id, name").eq("is_active", true).order("starts_at", { ascending: true }),
+      ]);
+
+      if (!active) return;
+
+      if (cityError) {
+        console.error("Failed to load cities", cityError);
+      }
+
+      if (seriesError) {
+        console.error("Failed to load active series", seriesError);
+      }
+
+      const nextCities = cityData ?? [];
+      const nextSeries = seriesData?.[0] ?? null;
+
+      setCities(nextCities as CityOption[]);
+      setCurrentSeries(nextSeries as SeriesOption | null);
+      setForm((current) => ({
+        ...current,
+        city_id: current.city_id || "",
+        series_id: current.series_id || nextSeries?.id || "",
+      }));
+    }
+
+    loadCatalog();
+
+    return () => {
+      active = false;
+    };
+  }, [open]);
+
   function reset() {
     setStep("form");
-    setForm({ full_name: "", email: "", preferred_day: "", skill_level: "" });
+    setForm({ full_name: "", email: "", phone: "", city_id: "", series_id: currentSeries?.id ?? "", skill_level: "" });
     setError("");
     setLoading(false);
   }
@@ -56,8 +110,10 @@ export default function RegisterModal({ open, onClose }: RegisterModalProps) {
     e.preventDefault();
     setError("");
 
-    if (!form.full_name.trim() || !form.email.trim() || !form.preferred_day || !form.skill_level) {
-      setError("Please fill in all fields.");
+    const selectedSeriesId = form.series_id || currentSeries?.id || "";
+
+    if (!form.full_name.trim() || !form.email.trim() || !form.phone.trim() || !form.city_id || !selectedSeriesId || !form.skill_level) {
+      setError("Please fill in all required fields.");
       return;
     }
 
@@ -66,7 +122,14 @@ export default function RegisterModal({ open, onClose }: RegisterModalProps) {
       const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          full_name: form.full_name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim(),
+          city_id: form.city_id,
+          series_id: selectedSeriesId,
+          skill_level: form.skill_level,
+        }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -133,7 +196,7 @@ export default function RegisterModal({ open, onClose }: RegisterModalProps) {
 
         {step === "form" ? (
           <>
-            <p className="eyebrow" style={{ marginBottom: 8 }}>Series One · 2026</p>
+            <p className="eyebrow" style={{ marginBottom: 8 }}>{currentSeries?.name ?? "The Mahjong Open — 2026 — Series One"}</p>
             <h2
               style={{
                 fontFamily: "var(--font-display)",
@@ -171,32 +234,34 @@ export default function RegisterModal({ open, onClose }: RegisterModalProps) {
                 />
               </Field>
 
-              <Field label="Preferred game day">
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 4 }}>
-                  {DAYS.map((d) => (
-                    <button
-                      key={d}
-                      type="button"
-                      onClick={() => setForm((f) => ({ ...f, preferred_day: d }))}
-                      style={{
-                        fontSize: 13,
-                        fontWeight: 500,
-                        padding: "6px 14px",
-                        borderRadius: "var(--radius-pill)",
-                        border: form.preferred_day === d ? "2px solid var(--pink-400)" : "1.5px solid var(--hair-200)",
-                        background: form.preferred_day === d ? "var(--pink-50)" : "#fff",
-                        color: form.preferred_day === d ? "var(--pink-700)" : "var(--ink-700)",
-                        cursor: "pointer",
-                        transition: "all 0.15s",
-                      }}
-                    >
-                      {d.slice(0, 3)}
-                    </button>
-                  ))}
-                </div>
+              <Field label="Phone number">
+                <input
+                  className="input-mo"
+                  type="tel"
+                  placeholder="(601) 555-0147"
+                  value={form.phone}
+                  onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
+                  autoComplete="tel"
+                />
               </Field>
 
-              <Field label="Experience level">
+              <Field label="City">
+                <select
+                  className="input-mo"
+                  value={form.city_id}
+                  onChange={(e) => setForm((f) => ({ ...f, city_id: e.target.value }))}
+                  disabled={cities.length === 0}
+                >
+                  <option value="">Select your city</option>
+                  {cities.map((city) => (
+                    <option key={city.id} value={city.id}>
+                      {city.name}, {city.state}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+
+              <Field label="Skill level">
                 <select
                   className="input-mo"
                   value={form.skill_level}
@@ -251,7 +316,7 @@ export default function RegisterModal({ open, onClose }: RegisterModalProps) {
               You&rsquo;re on the list!
             </h2>
             <p style={{ fontSize: 16, color: "var(--ink-700)", lineHeight: 1.6, marginBottom: 28 }}>
-              We&rsquo;ve saved your spot for Series One — 2026. Check your inbox for next steps, including how to complete registration and access the player portal.
+              You&rsquo;re registered — watch for details.
             </p>
             <button className="btn btn-primary" onClick={handleClose} style={{ justifyContent: "center" }}>
               Done

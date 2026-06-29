@@ -8,7 +8,7 @@ This project implements the preview-first mock-mode changes from §13 of the cli
   - Replace user-facing occurrences of **"Scramble"** with **"Mahjong Game League"**.
   - Replace user-facing occurrences of **"Season"** with **"Series"**.
 - Launch state:
-  - Display **Hattiesburg only** as the active city.
+  - Display **Ocean Springs, MS** as the active launch city.
   - Use the first series naming convention: **"The Mahjong Open — 2026 — Series One"**.
 - Marketing structure:
   - Remove the **Scramble Events** marketing page/link.
@@ -78,6 +78,29 @@ This phase extends the preview-first work into the admin experience and ranking/
 - Any sample analytics, referral lists, or badges must be labeled clearly as sample/mock content.
 - Do not implement refund actions, real attribution, or real ranking logic as if they were live features.
 
+## Launch 1 backend scope (approval gate)
+This is the only backend work included in the first launch pass, and it is intentionally narrower than the full redesign:
+
+- Build the public-facing site and a working registration flow that saves a registration to Supabase.
+- Do not build the portal, tables, scores, standings, referrals, or commissioner tooling in this pass.
+- Use a fresh, focused migration only for launch-critical entities:
+  - `profiles` with `phone` and the minimum user fields needed for registration.
+  - `cities` seeded with `Ocean Springs, MS` as the active launch city, with a simple structure that can later accept `Meridian`.
+  - `series` seeded with `The Mahjong Open — 2026 — Series One` and the Aug 17–Oct 11 window.
+  - `registrations` (or `memberships`) storing name, email, phone, city, skill level, and paid status.
+  - `payments` storing payment records for a registration.
+- Keep the registration experience focused on the client-required fields:
+  - Name
+  - Email
+  - Phone number
+  - City (dropdown with initial seeded options: Ocean Springs, MS and Meridian, MS; editable later if the client changes launch cities)
+  - Skill level
+  - Optional placeholder for a waiver/terms toggle until the client confirms wording.
+- Remove the preferred game day field from the Launch 1 registration form.
+- Mock the payment step for now so the registration can be saved while Stripe is still pending.
+- Do not start from the old `001_initial_schema.sql`/`002_rls_policies.sql` baseline for this launch; create a new focused migration that only includes the launch-1 data model.
+- Preserve the current mock preview UI as needed, but the backend path for Launch 1 must be real Supabase-backed registration storage.
+
 ## Review checklist
 - [ ] `app/(marketing)` no longer includes Scramble Events.
 - [ ] Portal bottom nav shows Directory instead of Alerts.
@@ -85,7 +108,7 @@ This phase extends the preview-first work into the admin experience and ranking/
 - [ ] Table detail and My Tables include Add to Calendar actions.
 - [ ] Marketing copy stops referencing weekly cadence and admin approval.
 - [ ] Standings view reflects average/top-2 style ranking in mock mode.
-- [ ] Active city data is seeded to Hattiesburg only.
+- [ ] Active city data is seeded to Ocean Springs, MS only.
 - [ ] Phase 2 admin console UI and mock-only preview features are included.
 - [ ] Backend/future items are documented as pending data-model work rather than faux functionality.
 - [ ] No Supabase or backend logic changes are required for this preview.
