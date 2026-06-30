@@ -17,10 +17,18 @@ const quicksand = Quicksand({
   display: "swap",
 });
 
+// Search-engine visibility is OFF by default (pre-launch safe default).
+// The site stays noindex until SITE_INDEXABLE is explicitly set to "true"
+// in the environment (set it in Vercel at launch, then redeploy).
+// The link still works for anyone you share it with — noindex only keeps
+// the site out of Google/Bing search results.
+const isIndexable = process.env.SITE_INDEXABLE === "true";
+
 export const metadata: Metadata = {
   title: "The Mahjong Open",
   description:
     "A city-based Mahjong Game League for women who love the game. Join your city's series.",
+  robots: isIndexable ? undefined : { index: false, follow: false },
 };
 
 export default function RootLayout({
