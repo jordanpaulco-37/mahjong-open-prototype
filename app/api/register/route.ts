@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
+import { Resend } from "resend";
 import { createAdminClient } from "@/lib/supabase/server";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
@@ -30,7 +33,23 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Registration could not be saved. Please try again." }, { status: 500 });
     }
 
-    // TODO: send a welcome email via Resend once the email integration is wired in.
+    try {
+      await resend.emails.send({
+        from: "The Mahjong Open <welcome@themahjongopen.com>",
+        to: [email],
+        subject: "Welcome to The Mahjong Open — 2026 — Series One",
+        html: `
+          <p>Hi ${full_name},</p>
+          <p>Thank you for registering for <strong>The Mahjong Open — 2026 — Series One</strong> (Aug 17–Oct 11).</p>
+          <p>Your registration is in and we’re looking forward to seeing you this series.</p>
+          <p>The player portal will open before the series starts, and we’ll send access details by email when it’s ready.</p>
+          <p>Thanks again,<br />The Mahjong Open</p>
+        `,
+      });
+    } catch (emailError) {
+      console.error("Welcome email failed", emailError);
+    }
+
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Invalid registration payload." }, { status: 400 });
