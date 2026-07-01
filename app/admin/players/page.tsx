@@ -68,35 +68,52 @@ export default function AdminPlayersPage() {
       {message ? <p style={{ fontSize: 13, color: "var(--ink-700)", marginBottom: 16 }}>{message}</p> : null}
 
       <div style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", overflow: "hidden", boxShadow: "var(--shadow-xs)" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 0.9fr 0.8fr 0.8fr 0.8fr", padding: "10px 16px", borderBottom: "1px solid var(--hair-200)", background: "var(--paper-50)" }}>
-          {["Player", "City · Season", "Designation", "Status", "Payment", "Joined"].map((h) => (
-            <p key={h} style={{ fontSize: 11, fontWeight: 700, color: "var(--ink-500)", letterSpacing: "0.1em", textTransform: "uppercase" }}>{h}</p>
-          ))}
-        </div>
-        {loading ? (
-          <div style={{ padding: 20, color: "var(--ink-500)" }}>Loading players…</div>
-        ) : (
-          rows.map((m, i) => (
-            <div key={m.id} style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr 0.9fr 0.8fr 0.8fr 0.8fr", padding: "12px 16px", borderBottom: i < rows.length - 1 ? "1px solid var(--hair-200)" : "none", alignItems: "center" }}>
-              <div>
-                <p style={{ fontSize: 14, fontWeight: 500, color: "var(--ink-900)" }}>{m.profiles.full_name ?? "—"}</p>
-                <p style={{ fontSize: 12, color: "var(--ink-500)" }}>{m.profiles.email}</p>
+        <div className="admin-players-table">
+          <div className="admin-players-table-header">
+            {["Player", "City · Season", "Designation", "Status", "Payment", "Joined"].map((h) => (
+              <p key={h}>{h}</p>
+            ))}
+          </div>
+          {loading ? (
+            <div style={{ padding: 20, color: "var(--ink-500)" }}>Loading players…</div>
+          ) : (
+            rows.map((m) => (
+              <div key={m.id} className="admin-players-row">
+                <div>
+                  <p style={{ fontSize: 14, fontWeight: 500, color: "var(--ink-900)" }}>{m.profiles.full_name ?? "—"}</p>
+                  <p style={{ fontSize: 12, color: "var(--ink-500)" }}>{m.profiles.email}</p>
+                </div>
+                <div>
+                  <span className="admin-mobile-label">City · Season</span>
+                  <p style={{ fontSize: 13, color: "var(--ink-700)" }}>{m.cities.name} · {m.seasons.name}</p>
+                </div>
+                <div>
+                  <span className="admin-mobile-label">Designation</span>
+                  <select
+                    value={m.profiles.role ?? "player"}
+                    onChange={(event) => handleDesignationChange(m, event.target.value)}
+                    style={{ fontSize: 13, border: "1px solid var(--hair-200)", borderRadius: 6, padding: "10px 12px", background: "#fff" }}
+                  >
+                    <option value="player">Player</option>
+                    <option value="commissioner">Commissioner</option>
+                  </select>
+                </div>
+                <div>
+                  <span className="admin-mobile-label">Status</span>
+                  <span className={`badge ${STATUS_BADGE[m.status] ?? "badge-mute"}`} style={{ alignSelf: "center" }}>{m.status}</span>
+                </div>
+                <div>
+                  <span className="admin-mobile-label">Payment</span>
+                  <span className={`badge ${PAID_BADGE[m.paid_status] ?? "badge-mute"}`} style={{ alignSelf: "center" }}>{m.paid_status}</span>
+                </div>
+                <div>
+                  <span className="admin-mobile-label">Joined</span>
+                  <p style={{ fontSize: 12, color: "var(--ink-500)" }}>{new Date(m.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</p>
+                </div>
               </div>
-              <p style={{ fontSize: 13, color: "var(--ink-700)" }}>{m.cities.name} · {m.seasons.name}</p>
-              <select
-                value={m.profiles.role ?? "player"}
-                onChange={(event) => handleDesignationChange(m, event.target.value)}
-                style={{ fontSize: 13, border: "1px solid var(--hair-200)", borderRadius: 6, padding: "6px 8px", background: "#fff" }}
-              >
-                <option value="player">Player</option>
-                <option value="commissioner">Commissioner</option>
-              </select>
-              <span className={`badge ${STATUS_BADGE[m.status] ?? "badge-mute"}`} style={{ alignSelf: "center" }}>{m.status}</span>
-              <span className={`badge ${PAID_BADGE[m.paid_status] ?? "badge-mute"}`} style={{ alignSelf: "center" }}>{m.paid_status}</span>
-              <p style={{ fontSize: 12, color: "var(--ink-500)" }}>{new Date(m.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric" })}</p>
-            </div>
-          ))
-        )}
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

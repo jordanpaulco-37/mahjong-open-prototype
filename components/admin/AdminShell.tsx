@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
-import { LayoutDashboard, Building2, CalendarRange, Users, Table2, ClipboardCheck, Megaphone, LogOut, ExternalLink } from "lucide-react";
+import { LayoutDashboard, Building2, CalendarRange, Users, Table2, ClipboardCheck, LogOut, ExternalLink, Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -19,64 +20,78 @@ const NAV_ITEMS = [
 export default function AdminShell({ children, adminName }: { children: React.ReactNode; adminName: string }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  useEffect(() => {
+    setDrawerOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!drawerOpen) {
+      document.body.classList.remove("admin-drawer-open");
+      return;
+    }
+
+    document.body.classList.add("admin-drawer-open");
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setDrawerOpen(false);
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.classList.remove("admin-drawer-open");
+    };
+  }, [drawerOpen]);
+
+  function closeDrawer() {
+    setDrawerOpen(false);
+  }
 
   async function signOut() {
+    closeDrawer();
     const supabase = createClient();
     await supabase.auth.signOut();
     router.push("/login");
   }
 
   return (
-    <div style={{ display: "flex", minHeight: "100dvh" }}>
-      {/* Sidebar */}
-      <aside
-        style={{
-          width: 220,
-          background: "var(--ink-900)",
-          color: "var(--fg-on-dark)",
-          display: "flex",
-          flexDirection: "column",
-          position: "fixed",
-          top: 0,
-          bottom: 0,
-          left: 0,
-          zIndex: 50,
-          overflowY: "auto",
-        }}
-        className="admin-sidebar"
-      >
-        {/* Brand */}
-        <div style={{ padding: "20px 16px", borderBottom: "1px solid rgba(234,242,242,0.1)" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
-            <Image src="/assets/mark-mono.svg" alt="" width={24} height={24} />
-            <span style={{ fontFamily: "var(--font-display)", fontSize: 14, color: "var(--fg-on-dark)" }}>Mahjong Open</span>
+    <div className="admin-shell">
+      <div className={`admin-drawer-backdrop ${drawerOpen ? "is-open" : ""}`} onClick={closeDrawer} />
+
+      <header className="admin-mobile-topbar">
+        <button type="button" className="admin-mobile-nav-toggle" onClick={() => setDrawerOpen(true)} aria-label="Open admin navigation" aria-expanded={drawerOpen}>
+          <Menu size={20} />
+        </button>
+        <div className="admin-mobile-topbar-content">
+          <div className="admin-mobile-topbar-brand">
+            <Image src="/assets/mark-mono.svg" alt="" width={20} height={20} />
+            <span>Mahjong Open</span>
           </div>
-          <p style={{ fontSize: 11, color: "rgba(234,242,242,0.4)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase" }}>Admin Panel</p>
+          <p>Admin</p>
+        </div>
+      </header>
+
+      <aside className={`admin-sidebar ${drawerOpen ? "is-open" : ""}`}>
+        <div className="admin-sidebar-header">
+          <div className="admin-sidebar-brand">
+            <Image src="/assets/mark-mono.svg" alt="" width={24} height={24} />
+            <div>
+              <span style={{ fontFamily: "var(--font-display)", fontSize: 14, color: "var(--fg-on-dark)" }}>Mahjong Open</span>
+              <p style={{ fontSize: 11, color: "rgba(234,242,242,0.4)", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", marginTop: 2 }}>Admin Panel</p>
+            </div>
+          </div>
+          <button type="button" className="admin-sidebar-close" onClick={closeDrawer} aria-label="Close admin navigation">
+            <X size={18} />
+          </button>
         </div>
 
-        {/* Nav */}
-        <nav style={{ flex: 1, padding: "12px 8px" }}>
+        <nav className="admin-sidebar-nav">
           {NAV_ITEMS.map(({ label, href, icon: Icon }) => {
             const active = pathname === href || (href !== "/admin" && pathname.startsWith(href));
             return (
-              <Link
-                key={href}
-                href={href}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 10,
-                  padding: "10px 10px",
-                  borderRadius: "var(--radius-sm)",
-                  marginBottom: 2,
-                  textDecoration: "none",
-                  fontSize: 14,
-                  fontWeight: active ? 600 : 400,
-                  color: active ? "#fff" : "rgba(234,242,242,0.6)",
-                  background: active ? "rgba(255,255,255,0.1)" : "transparent",
-                  transition: "background 0.15s, color 0.15s",
-                }}
-              >
+              <Link key={href} href={href} className={`admin-sidebar-link ${active ? "is-active" : ""}`} onClick={closeDrawer}>
                 <Icon size={16} />
                 {label}
               </Link>
@@ -84,62 +99,24 @@ export default function AdminShell({ children, adminName }: { children: React.Re
           })}
         </nav>
 
-        {/* Footer */}
-        <div style={{ padding: "12px 8px", borderTop: "1px solid rgba(234,242,242,0.1)" }}>
-          <Link
-            href="/portal"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-              padding: "10px 10px",
-              borderRadius: "var(--radius-sm)",
-              textDecoration: "none",
-              fontSize: 13,
-              color: "rgba(234,242,242,0.5)",
-              marginBottom: 4,
-            }}
-          >
+        <div className="admin-sidebar-footer">
+          <Link href="/portal" className="admin-sidebar-footer-link" onClick={closeDrawer}>
             <ExternalLink size={14} />
             Player portal
           </Link>
-          <button
-            onClick={signOut}
-            style={{
-              width: "100%",
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-              padding: "10px 10px",
-              borderRadius: "var(--radius-sm)",
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontSize: 13,
-              color: "rgba(234,242,242,0.5)",
-              textAlign: "left",
-            }}
-          >
+          <button type="button" onClick={signOut} className="admin-sidebar-footer-button">
             <LogOut size={14} />
             Sign out
           </button>
-          <div style={{ padding: "10px 10px 0" }}>
-            <p style={{ fontSize: 12, color: "rgba(234,242,242,0.35)" }}>{adminName}</p>
+          <div className="admin-sidebar-user">
+            <p>{adminName}</p>
           </div>
         </div>
       </aside>
 
-      {/* Main content */}
-      <main style={{ flex: 1, marginLeft: 220, padding: "32px", background: "var(--paper-50)", minHeight: "100dvh" }} className="admin-main">
-        {children}
+      <main className="admin-main">
+        <div className="admin-main-page">{children}</div>
       </main>
-
-      <style>{`
-        @media (max-width: 768px) {
-          .admin-sidebar { display: none; }
-          .admin-main { margin-left: 0 !important; padding: 16px !important; }
-        }
-      `}</style>
     </div>
   );
 }

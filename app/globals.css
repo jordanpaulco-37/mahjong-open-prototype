@@ -234,6 +234,500 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+body.admin-drawer-open {
+  overflow: hidden;
+}
+
+.admin-shell {
+  display: flex;
+  min-height: 100dvh;
+  background: var(--paper-50);
+}
+
+.admin-mobile-topbar {
+  display: none;
+  position: sticky;
+  top: 0;
+  z-index: 55;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid var(--hair-200);
+  backdrop-filter: blur(8px);
+}
+
+.admin-mobile-nav-toggle,
+.admin-sidebar-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--hair-200);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink-900);
+  cursor: pointer;
+}
+
+.admin-mobile-topbar-content {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.admin-mobile-topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: var(--ink-900);
+}
+
+.admin-mobile-topbar-content p {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-500);
+}
+
+.admin-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(31, 56, 67, 0.42);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 55;
+}
+
+.admin-drawer-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.admin-sidebar {
+  width: 220px;
+  background: var(--ink-900);
+  color: var(--fg-on-dark);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 60;
+  overflow-y: auto;
+  transform: translateX(0);
+  transition: transform 0.2s ease;
+}
+
+.admin-sidebar-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 16px;
+  border-bottom: 1px solid rgba(234, 242, 242, 0.1);
+}
+
+.admin-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-sidebar-nav {
+  flex: 1;
+  padding: 12px 8px;
+}
+
+.admin-sidebar-link,
+.admin-sidebar-footer-link,
+.admin-sidebar-footer-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 10px;
+  border: none;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-size: 14px;
+  color: rgba(234, 242, 242, 0.6);
+  background: transparent;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.admin-sidebar-link.is-active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-sidebar-footer {
+  padding: 12px 8px;
+  border-top: 1px solid rgba(234, 242, 242, 0.1);
+}
+
+.admin-sidebar-footer-link {
+  font-size: 13px;
+  color: rgba(234, 242, 242, 0.5);
+  margin-bottom: 4px;
+}
+
+.admin-sidebar-footer-button {
+  cursor: pointer;
+  font-size: 13px;
+  color: rgba(234, 242, 242, 0.5);
+  text-align: left;
+}
+
+.admin-sidebar-user {
+  padding: 10px 10px 0;
+}
+
+.admin-sidebar-user p {
+  margin: 0;
+  font-size: 12px;
+  color: rgba(234, 242, 242, 0.35);
+}
+
+.admin-main {
+  flex: 1;
+  margin-left: 220px;
+  padding: 32px;
+  background: var(--paper-50);
+  min-height: 100dvh;
+}
+
+.admin-main-page {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.admin-login-shell {
+  min-height: 100dvh;
+  background: var(--paper-50);
+  padding: 24px 16px;
+}
+
+.admin-players-table,
+.admin-tables-table {
+  display: grid;
+  width: 100%;
+}
+
+.admin-players-table {
+  grid-template-columns: 1.4fr 1fr 0.9fr 0.8fr 0.8fr 0.8fr;
+}
+
+.admin-tables-table {
+  grid-template-columns: 60px 1.5fr 1fr 1fr 80px 60px;
+}
+
+.admin-players-table-header,
+.admin-tables-table-header {
+  display: contents;
+}
+
+.admin-players-table-header p,
+.admin-tables-table-header p {
+  padding: 10px 16px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink-500);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--paper-50);
+  margin: 0;
+}
+
+.admin-players-row,
+.admin-tables-row {
+  display: contents;
+}
+
+.admin-players-row > *,
+.admin-tables-row > * {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--hair-200);
+  align-self: center;
+}
+
+.admin-players-row:last-child > *,
+.admin-tables-row:last-child > * {
+  border-bottom: none;
+}
+
+.admin-players-row .admin-mobile-label,
+.admin-tables-row .admin-mobile-label,
+.admin-season-list-row .admin-mobile-label,
+.admin-cities-row .admin-mobile-label {
+  display: none;
+}
+
+.admin-season-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 80px 80px;
+  gap: 12px;
+}
+
+.admin-season-date-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.admin-dashboard-layout {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 24px;
+  align-items: start;
+}
+
+.admin-dashboard-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+
+.admin-cities-form {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-cities-form .input-mo:first-child {
+  flex: 2;
+  min-width: 180px;
+}
+
+.admin-cities-form .input-mo:nth-child(2) {
+  flex: 1;
+  min-width: 120px;
+}
+
+.admin-cities-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-cities-row {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--hair-200);
+}
+
+.admin-cities-row:last-child {
+  border-bottom: none;
+}
+
+.admin-cities-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-cities-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.admin-cities-edit {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-score-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.admin-score-card-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 899px) {
+  .admin-mobile-topbar {
+    display: flex;
+  }
+
+  .admin-sidebar {
+    width: min(86vw, 320px);
+    transform: translateX(-100%);
+    box-shadow: 0 16px 40px rgba(31, 56, 67, 0.16);
+  }
+
+  .admin-sidebar.is-open {
+    transform: translateX(0);
+  }
+
+  .admin-main {
+    margin-left: 0;
+    padding: 16px 16px 28px;
+  }
+
+  .admin-sidebar-close {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 900px) {
+  .admin-mobile-topbar,
+  .admin-mobile-nav-toggle,
+  .admin-sidebar-close,
+  .admin-drawer-backdrop {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-main {
+    padding: 16px 14px 28px;
+  }
+
+  .admin-players-table,
+  .admin-tables-table {
+    display: block;
+  }
+
+  .admin-players-table-header,
+  .admin-tables-table-header {
+    display: none;
+  }
+
+  .admin-players-row,
+  .admin-tables-row {
+    display: block;
+    padding: 16px;
+    border: 1px solid var(--hair-200);
+    border-radius: var(--radius-lg);
+    background: #fff;
+    box-shadow: var(--shadow-xs);
+    margin-bottom: 12px;
+  }
+
+  .admin-players-row > *,
+  .admin-tables-row > * {
+    padding: 0;
+    border-bottom: none;
+    margin-bottom: 8px;
+  }
+
+  .admin-players-row > *:last-child,
+  .admin-tables-row > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .admin-players-row .admin-mobile-label,
+  .admin-tables-row .admin-mobile-label,
+  .admin-season-list-row .admin-mobile-label,
+  .admin-cities-row .admin-mobile-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-500);
+    margin-bottom: 4px;
+  }
+
+  .admin-players-row select,
+  .admin-players-row .btn,
+  .admin-players-row .badge,
+  .admin-tables-row .badge,
+  .admin-season-form button,
+  .admin-cities-edit .btn,
+  .admin-cities-actions .btn,
+  .admin-score-card-actions .btn {
+    min-height: 44px;
+  }
+
+  .admin-players-row select,
+  .admin-season-form button,
+  .admin-cities-edit .btn,
+  .admin-cities-actions .btn,
+  .admin-score-card-actions .btn {
+    width: 100%;
+  }
+
+  .admin-players-row select {
+    padding: 10px 12px;
+  }
+
+  .admin-season-form-grid,
+  .admin-season-date-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-season-list-row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 18px;
+    border-bottom: 1px solid var(--hair-200);
+  }
+
+  .admin-season-list-row .admin-season-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .admin-dashboard-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-dashboard-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-cities-form {
+    flex-direction: column;
+  }
+
+  .admin-cities-form .input-mo:first-child,
+  .admin-cities-form .input-mo:nth-child(2) {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .admin-cities-meta,
+  .admin-cities-actions,
+  .admin-cities-edit,
+  .admin-score-card-header,
+  .admin-score-card-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-score-card-header {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-dashboard-metrics {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ============================================================
    TYPOGRAPHY UTILITIES
    ============================================================ */
@@ -459,7 +953,7 @@ body {
 
 .portal-content {
   padding-top: 56px;
-  padding-bottom: 64px;
+  padding-bottom: 88px;
   min-height: 100dvh;
   background: var(--bg);
 }

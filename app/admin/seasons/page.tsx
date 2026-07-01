@@ -50,8 +50,8 @@ export default function AdminSeasonsPage() {
 
       <div style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", padding: 24, marginBottom: 32, boxShadow: "var(--shadow-sm)" }}>
         <h2 style={{ fontFamily: "var(--font-display)", fontSize: 18, color: "var(--ink-900)", marginBottom: 20 }}>Create season</h2>
-        <form onSubmit={handleCreate} style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 80px 80px", gap: 12 }}>
+        <form onSubmit={handleCreate} className="admin-season-form" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+          <div className="admin-season-form-grid">
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               <label style={{ fontSize: 12, fontWeight: 600, color: "var(--ink-800)" }}>City</label>
               <select className="input-mo" value={form.city_id} onChange={(e) => setForm((f) => ({ ...f, city_id: e.target.value }))} required>
@@ -74,7 +74,7 @@ export default function AdminSeasonsPage() {
               </select>
             </div>
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          <div className="admin-season-date-grid">
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
               <label style={{ fontSize: 12, fontWeight: 600, color: "var(--ink-800)" }}>Starts (Week 1)</label>
               <input className="input-mo" type="date" value={form.starts_at} onChange={(e) => setForm((f) => ({ ...f, starts_at: e.target.value }))} />
@@ -90,12 +90,13 @@ export default function AdminSeasonsPage() {
 
       <div style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", overflow: "hidden", boxShadow: "var(--shadow-xs)" }}>
         {seasons.map((s, i) => (
-          <div key={s.id} style={{ padding: "14px 18px", borderBottom: i < seasons.length - 1 ? "1px solid var(--hair-200)" : "none", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div key={s.id} className="admin-season-list-row" style={{ padding: "14px 18px", borderBottom: i < seasons.length - 1 ? "1px solid var(--hair-200)" : "none" }}>
             <div>
+              <span className="admin-mobile-label">Season</span>
               <p style={{ fontSize: 15, fontWeight: 600, color: "var(--ink-900)" }}>{s.name}</p>
               <p style={{ fontSize: 12, color: "var(--ink-500)" }}>{cityName(s.city_id)} · Q{s.quarter} {s.year} · {s.total_weeks} weeks</p>
             </div>
-            <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+            <div className="admin-season-actions">
               <span className={`badge ${s.is_active ? "badge-lime" : "badge-mute"}`}>{s.is_active ? "Active" : "Inactive"}</span>
               {!s.is_active && (
                 <button onClick={() => setActive(s)} className="btn btn-ghost" style={{ fontSize: 12, padding: "5px 12px" }}>Set active</button>

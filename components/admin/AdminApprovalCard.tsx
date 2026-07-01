@@ -80,6 +80,7 @@ export default function AdminApprovalCard({ submission }: { submission: Submissi
     >
       {/* Header */}
       <div
+        className="admin-score-card-header"
         style={{
           padding: "14px 18px",
           borderBottom: "1px solid var(--hair-200)",
@@ -157,6 +158,7 @@ export default function AdminApprovalCard({ submission }: { submission: Submissi
 
       {/* Actions */}
       <div
+        className="admin-score-card-actions"
         style={{
           padding: "12px 18px",
           borderTop: "1px solid var(--hair-200)",

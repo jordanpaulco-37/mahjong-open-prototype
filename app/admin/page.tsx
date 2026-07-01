@@ -85,7 +85,7 @@ export default function AdminDashboard() {
         </div>
       ) : (
         <div style={{ display: "grid", gap: 24 }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: 12 }}>
+          <div className="admin-dashboard-metrics">
             {metricCards.map((metric) => (
               <div key={metric.label} style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", padding: 16, boxShadow: "var(--shadow-xs)" }}>
                 <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--ink-500)", marginBottom: 8 }}>{metric.label}</p>
@@ -114,7 +114,7 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 240px", gap: 24, alignItems: "start" }}>
+          <div className="admin-dashboard-layout">
             <div style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", padding: 20, boxShadow: "var(--shadow-sm)" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
                 <div>

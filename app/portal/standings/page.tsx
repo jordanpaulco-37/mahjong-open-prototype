@@ -18,7 +18,6 @@ export default async function StandingsPage() {
         <p className="eyebrow" style={{ marginBottom: 4 }}>{cityName}</p>
         <h2 style={{ fontFamily: "var(--font-display)", fontSize: 22, color: "var(--ink-900)" }}>{seasonName} Standings</h2>
         <div style={{ display: "inline-flex", alignItems: "center", gap: 6, marginTop: 8, padding: "6px 10px", borderRadius: "999px", background: "var(--pink-50)", color: "var(--pink-700)", fontSize: 12, fontWeight: 700 }}>
-          <span>🏅</span>
           {adminConsole.topFinisher.badge}: {adminConsole.topFinisher.player}
         </div>
       </div>

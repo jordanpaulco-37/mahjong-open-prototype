@@ -157,22 +157,23 @@ export default function AdminCitiesPage() {
 
       <div style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", padding: 24, marginBottom: 32, boxShadow: "var(--shadow-sm)" }}>
         <h2 style={{ fontFamily: "var(--font-display)", fontSize: 18, color: "var(--ink-900)", marginBottom: 20 }}>Add city</h2>
-        <form onSubmit={handleCreate} style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <input className="input-mo" placeholder="City name" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} required style={{ flex: 2, minWidth: 180 }} />
-          <input className="input-mo" placeholder="State (e.g. MS)" value={form.state} onChange={(e) => setForm((f) => ({ ...f, state: e.target.value }))} required style={{ flex: 1, minWidth: 120 }} />
+        <form onSubmit={handleCreate} className="admin-cities-form">
+          <input className="input-mo" placeholder="City name" value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} required />
+          <input className="input-mo" placeholder="State (e.g. MS)" value={form.state} onChange={(e) => setForm((f) => ({ ...f, state: e.target.value }))} required />
           <button className="btn btn-primary" type="submit" disabled={loading} style={{ whiteSpace: "nowrap" }}>{loading ? "Adding…" : "Add city"}</button>
         </form>
       </div>
 
-      <div style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", overflow: "hidden", boxShadow: "var(--shadow-xs)" }}>
+      <div className="admin-cities-list" style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", overflow: "hidden", boxShadow: "var(--shadow-xs)" }}>
         {cities.map((city, i) => (
-          <div key={city.id} style={{ padding: "14px 18px", borderBottom: i < cities.length - 1 ? "1px solid var(--hair-200)" : "none" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+          <div key={city.id} className="admin-cities-row" style={{ borderBottom: i < cities.length - 1 ? "1px solid var(--hair-200)" : "none" }}>
+            <div className="admin-cities-meta">
               <div>
+                <span className="admin-mobile-label">City</span>
                 <p style={{ fontSize: 15, fontWeight: 600, color: "var(--ink-900)", margin: 0 }}>{city.name}{city.state ? `, ${city.state}` : ""}</p>
                 <p style={{ fontSize: 12, color: "var(--ink-500)", margin: "4px 0 0" }}>/{city.slug}</p>
               </div>
-              <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+              <div className="admin-cities-actions">
                 <span className={`badge ${city.is_active ? "badge-lime" : "badge-mute"}`}>{city.is_active ? "Active" : "Inactive"}</span>
                 <button onClick={() => toggleActive(city)} className="btn btn-ghost" style={{ fontSize: 12, padding: "5px 12px" }} disabled={loading}>
                   {city.is_active ? "Deactivate" : "Activate"}
@@ -186,7 +187,7 @@ export default function AdminCitiesPage() {
               </div>
             </div>
             {editingId === city.id ? (
-              <div style={{ marginTop: 12, display: "flex", gap: 10, flexWrap: "wrap" }}>
+              <div className="admin-cities-edit">
                 <input className="input-mo" value={editForm.name} onChange={(e) => setEditForm((f) => ({ ...f, name: e.target.value }))} style={{ minWidth: 180, flex: 2 }} />
                 <input className="input-mo" value={editForm.state} onChange={(e) => setEditForm((f) => ({ ...f, state: e.target.value }))} style={{ minWidth: 120, flex: 1 }} />
                 <button className="btn btn-primary" onClick={() => void handleUpdate(city.id)} disabled={loading}>Save</button>
