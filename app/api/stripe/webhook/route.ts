@@ -57,7 +57,7 @@ export async function POST(request: Request) {
 
     const { data: registrationData } = await supabase
       .from("registrations")
-      .select("id, full_name, email, series_id, paid_status")
+      .select("id, full_name, email, phone, city_id, series_id, paid_status, created_at")
       .eq("id", registrationId)
       .maybeSingle();
 
@@ -88,6 +88,13 @@ export async function POST(request: Request) {
         .eq("id", registrationData.series_id)
         .single();
 
+      const { data: cityData } = await supabase
+        .from("cities")
+        .select("name")
+        .eq("id", registrationData.city_id)
+        .maybeSingle();
+
+      const cityName = cityData?.name ?? "Unknown city";
       const seriesName = seriesData?.name ?? "The Mahjong Open";
       const firstName = (registrationData.full_name || "there").split(" ")[0];
       const amountPaid =
@@ -106,12 +113,33 @@ export async function POST(request: Request) {
         seriesData?.starts_at && seriesData?.ends_at
           ? `${formatDate(seriesData.starts_at)} – ${formatDate(seriesData.ends_at)}`
           : "";
+      const registeredAt = registrationData.created_at
+        ? new Date(registrationData.created_at).toLocaleString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
+          })
+        : "Unknown";
 
       const SITE_URL = "https://themahjongopen.com";
       const RULEBOOK_URL = "";
       const rulebookBlock = RULEBOOK_URL
         ? `<tr><td style="padding:6px 40px 4px 40px;font-family:Helvetica,Arial,sans-serif;"><p style="margin:0;font-size:15px;line-height:1.65;color:#3a4a4f;">New to the game or want a refresher? <a href="${RULEBOOK_URL}" style="color:#c60e31;font-weight:bold;text-decoration:underline;">Read the official rulebook</a> so you&rsquo;re ready for your first table.</p></td></tr>`
         : "";
+
+      const internalNoticeInnerHtml = `
+        <div style="font-family:Helvetica,Arial,sans-serif;font-size:15px;line-height:1.65;color:#3a4a4f;">
+          <p style="margin:0 0 12px 0;"><strong>Name:</strong> ${registrationData.full_name}</p>
+          <p style="margin:0 0 12px 0;"><strong>Email:</strong> ${registrationData.email}</p>
+          <p style="margin:0 0 12px 0;"><strong>Phone:</strong> ${registrationData.phone || "Not provided"}</p>
+          <p style="margin:0 0 12px 0;"><strong>City:</strong> ${cityName}</p>
+          <p style="margin:0 0 12px 0;"><strong>Series:</strong> ${seriesName}</p>
+          <p style="margin:0 0 12px 0;"><strong>Amount paid:</strong> ${amountPaid}</p>
+          <p style="margin:0;"><strong>Registered at:</strong> ${registeredAt}</p>
+        </div>
+      `;
 
       const innerHtml = `
         <p style="margin:0 0 4px 0;font-size:15px;line-height:1.65;color:#3a4a4f;">Your payment was successful and your spot in <strong style="color:#1d4d59;">${seriesName}</strong> is confirmed. We can&rsquo;t wait to see you at the table.</p>
@@ -148,12 +176,24 @@ export async function POST(request: Request) {
 
         await resend.emails.send({
           from: "The Mahjong Open <welcome@themahjongopen.com>",
+          to: ["themahjongopen@gmail.com"],
+          replyTo: registrationData.email,
+          subject: `New registration — ${registrationData.full_name} · ${cityName} (${seriesName})`,
+          html: buildBrandedEmail({
+            title: "New registration",
+            innerHtml: internalNoticeInnerHtml,
+            footerNote: "A city-based Mahjong game league. You’re receiving this because a player completed a registration through The Mahjong Open.",
+          }),
+        });
+
+        await resend.emails.send({
+          from: "The Mahjong Open <welcome@themahjongopen.com>",
           to: [registrationData.email],
           subject: `You're in — Welcome to ${seriesName}`,
           html,
         });
       } catch (emailError) {
-        console.error("Welcome email failed after payment confirmation.", emailError);
+        console.error("Welcome or registration notice email failed after payment confirmation.", emailError);
       }
     }
   }

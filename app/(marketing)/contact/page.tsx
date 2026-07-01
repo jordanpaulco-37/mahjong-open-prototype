@@ -14,7 +14,7 @@ const FAQS = [
 
 export default function ContactPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [form, setForm] = useState({ first: "", last: "", email: "", subject: "", message: "" });
+  const [form, setForm] = useState({ first: "", last: "", email: "", subject: "", message: "", website: "" });
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +25,7 @@ export default function ContactPage() {
       await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, honeypot: form.website }),
       });
       setSubmitted(true);
     } finally {
@@ -142,6 +142,10 @@ export default function ContactPage() {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                  <div style={{ position: "absolute", left: "-9999px", opacity: 0, pointerEvents: "none" }} aria-hidden="true">
+                    <label htmlFor="website">Website</label>
+                    <input id="website" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={(e) => setForm((f) => ({ ...f, website: e.target.value }))} />
+                  </div>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
                       <label style={{ fontSize: 13, fontWeight: 600, color: "var(--ink-800)" }}>First name</label>
