@@ -29,6 +29,15 @@ export function buildBrandedEmail({
               </td>
             </tr>
             <tr>
+              <td style="padding:0 40px 24px 40px;">
+                <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+                  <tr>
+                    <td style="font-size:0;line-height:0;height:24px;">&nbsp;</td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <tr>
               <td style="padding:24px 40px;background-color:#1d4d59;font-family:Helvetica,Arial,sans-serif;">
                 <img src="${ASSET_BASE}/assets/logo-email-white.png" alt="The Mahjong Open" width="150" style="display:block;margin:0 0 14px 0;border:0;" />
                 <p style="margin:0 0 10px 0;font-size:12px;line-height:1.5;color:#b8cdc6;">${footerNote}</p>
