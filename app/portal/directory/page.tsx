@@ -1,6 +1,6 @@
+import Link from "next/link";
 import { getAdminPlayers, getMembership } from "@/lib/data";
 import { getDemoUser } from "@/lib/data/auth";
-import { Users, Star } from "lucide-react";
 
 export default async function DirectoryPage() {
   const user = getDemoUser();
@@ -35,15 +35,24 @@ export default async function DirectoryPage() {
             }}
           >
             <div>
-              <p style={{ fontSize: 15, fontWeight: 600, color: "var(--ink-900)", marginBottom: 6 }}>{member.profiles.full_name}</p>
+              <Link href={`/portal/profile/${member.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                <p style={{ fontSize: 15, fontWeight: 600, color: "var(--ink-900)", marginBottom: 6 }}>{member.profiles.full_name}</p>
+              </Link>
               <p style={{ fontSize: 13, color: "var(--ink-500)", marginBottom: 4 }}>{member.profiles.email}</p>
               <p style={{ fontSize: 13, color: "var(--ink-500)" }}>
                 {member.skill_level ? `${member.skill_level.charAt(0).toUpperCase()}${member.skill_level.slice(1)} player` : "Member"}
               </p>
             </div>
-            <span className="badge badge-peri" style={{ fontSize: 12, whiteSpace: "nowrap" }}>
-              Active
-            </span>
+            <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-end" }}>
+              {member.profiles.role === "commissioner" ? (
+                <span style={{ fontSize: 12, fontWeight: 600, color: "var(--pink-700)", background: "var(--pink-50)", border: "1px solid var(--pink-100)", borderRadius: 999, padding: "4px 8px", whiteSpace: "nowrap" }}>
+                  Commissioner
+                </span>
+              ) : null}
+              <span className="badge badge-peri" style={{ fontSize: 12, whiteSpace: "nowrap" }}>
+                Active
+              </span>
+            </div>
           </div>
         ))}
       </div>

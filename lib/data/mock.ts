@@ -5,7 +5,7 @@ export const DEMO_USER_ID = "user-demo";
 
 export const MOCK_USERS = [
   { id: "user-demo",  full_name: "Jordan Chen",    email: "jordan@themahjongopen.com", role: "admin"  as const },
-  { id: "user-2",     full_name: "Morgan Park",     email: "morgan@example.com",        role: "player" as const },
+  { id: "user-2",     full_name: "Morgan Park",     email: "morgan@example.com",        role: "commissioner" as const },
   { id: "user-3",     full_name: "Casey Huang",     email: "casey@example.com",         role: "player" as const },
   { id: "user-4",     full_name: "Alex Kim",        email: "alex@example.com",          role: "player" as const },
   { id: "user-5",     full_name: "Sam Rivera",      email: "sam@example.com",           role: "player" as const },
@@ -60,8 +60,7 @@ export const MOCK_ADMIN_CONSOLE = {
     tableFillRate: 0.76,
   },
   roles: [
-    { role: "Admin", detail: "4 co-equal accounts · full access" },
-    { role: "Commissioner", detail: "One per city · city-scoped tools" },
+    { role: "Admin", detail: "Full access" },
     { role: "Player", detail: "Portal-only experience" },
   ],
   scopes: [
@@ -69,18 +68,11 @@ export const MOCK_ADMIN_CONSOLE = {
     { label: "Your role", value: "Admin" },
     { label: "Preview mode", value: "Console" },
   ],
-  referralLink: "https://themahjongopen.com/r/jordan-chen",
-  referrals: [
-    { id: "ref-1", name: "Morgan Park", type: "Player referral", city: "Hattiesburg", status: "Active" },
-    { id: "ref-2", name: "Casey Huang", type: "Player referral", city: "Hattiesburg", status: "Pending" },
-    { id: "ref-3", name: "Avery Soo", type: "City referral", city: "Jackson", status: "Pending" },
-  ],
   topFinisher: {
     player: "Morgan Park",
     week: 4,
     badge: "Top finisher",
   },
-  sampleLabel: "Sample data only",
 };
 
 export const MOCK_MEMBERSHIP = {
@@ -406,7 +398,7 @@ export const MOCK_PLAYERS = MOCK_USERS.map((u) => ({
   paid_status: "paid" as const,
   skill_level: "intermediate" as const,
   created_at: "2026-04-20T00:00:00Z",
-  profiles: { full_name: u.full_name, email: u.email },
+  profiles: { id: u.id, full_name: u.full_name, email: u.email, role: u.role },
   cities: { name: "Los Angeles" },
   seasons: { name: "Spring 2026" },
 }));

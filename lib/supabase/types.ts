@@ -1,6 +1,6 @@
 export type Json = string | number | boolean | null | { [key: string]: Json } | Json[];
 
-export type UserRole = "player" | "admin";
+export type UserRole = "player" | "admin" | "commissioner";
 export type MembershipStatus = "pending" | "active" | "canceled";
 export type PaidStatus = "unpaid" | "paid" | "refunded";
 export type TableStatus = "open" | "full" | "completed" | "canceled";

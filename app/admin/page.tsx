@@ -76,7 +76,7 @@ export default function AdminDashboard() {
           <p className="eyebrow" style={{ marginBottom: 8 }}>Player preview</p>
           <h2 style={{ fontFamily: "var(--font-display)", fontSize: 22, color: "var(--ink-900)", marginBottom: 8 }}>Portal view for {user.full_name}</h2>
           <p style={{ fontSize: 15, color: "var(--ink-700)", lineHeight: 1.6, marginBottom: 16 }}>
-            This is a preview-only player view so admins and commissioners can check the home experience without leaving the console.
+            This is a preview-only player view so admins can check the home experience without leaving the console.
           </p>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <Link href="/portal" className="btn btn-primary" style={{ justifyContent: "center" }}>Open portal home</Link>
@@ -94,50 +94,23 @@ export default function AdminDashboard() {
             ))}
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1.2fr 0.8fr", gap: 24, alignItems: "start" }}>
-            <div style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", padding: 20, boxShadow: "var(--shadow-sm)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-                <div>
-                  <p className="eyebrow" style={{ marginBottom: 6 }}>Role scoping</p>
-                  <h2 style={{ fontFamily: "var(--font-display)", fontSize: 20, color: "var(--ink-900)", margin: 0 }}>Admin + commissioner access</h2>
-                </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--pink-600)", fontSize: 13, fontWeight: 600 }}>
-                  <Users size={16} /> {consoleData.roles.length} roles
-                </div>
+          <div style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", padding: 20, boxShadow: "var(--shadow-sm)" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+              <div>
+                <p className="eyebrow" style={{ marginBottom: 6 }}>Role scoping</p>
+                <h2 style={{ fontFamily: "var(--font-display)", fontSize: 20, color: "var(--ink-900)", margin: 0 }}>Admin access</h2>
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {consoleData.roles.map((item) => (
-                  <div key={item.role} style={{ border: "1px solid var(--hair-200)", borderRadius: "var(--radius-md)", padding: "12px 14px", background: "var(--paper-50)" }}>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: "var(--ink-900)", marginBottom: 2 }}>{item.role}</p>
-                    <p style={{ fontSize: 13, color: "var(--ink-600)", margin: 0 }}>{item.detail}</p>
-                  </div>
-                ))}
+              <div style={{ display: "flex", alignItems: "center", gap: 8, color: "var(--pink-600)", fontSize: 13, fontWeight: 600 }}>
+                <Users size={16} /> {consoleData.roles.length} roles
               </div>
             </div>
-
-            <div style={{ background: "#fff", border: "1px solid var(--hair-200)", borderRadius: "var(--radius-lg)", padding: 20, boxShadow: "var(--shadow-sm)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
-                <div>
-                  <p className="eyebrow" style={{ marginBottom: 6 }}>Referrals</p>
-                  <h2 style={{ fontFamily: "var(--font-display)", fontSize: 20, color: "var(--ink-900)", margin: 0 }}>Your referrals</h2>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {consoleData.roles.map((item) => (
+                <div key={item.role} style={{ border: "1px solid var(--hair-200)", borderRadius: "var(--radius-md)", padding: "12px 14px", background: "var(--paper-50)" }}>
+                  <p style={{ fontSize: 14, fontWeight: 600, color: "var(--ink-900)", marginBottom: 2 }}>{item.role}</p>
+                  <p style={{ fontSize: 13, color: "var(--ink-600)", margin: 0 }}>{item.detail}</p>
                 </div>
-                <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--lime-600)" }}>{consoleData.sampleLabel}</span>
-              </div>
-              <div style={{ background: "var(--pink-50)", border: "1px solid var(--pink-100)", borderRadius: "var(--radius-md)", padding: "12px 14px", marginBottom: 12 }}>
-                <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: "0.12em", textTransform: "uppercase", color: "var(--pink-600)", marginBottom: 6 }}>Referral link</p>
-                <p style={{ fontSize: 13, color: "var(--ink-700)", wordBreak: "break-all", margin: 0 }}>{consoleData.referralLink}</p>
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-                {consoleData.referrals.map((item) => (
-                  <div key={item.id} style={{ border: "1px solid var(--hair-200)", borderRadius: "var(--radius-md)", padding: "10px 12px", display: "flex", justifyContent: "space-between", gap: 8, alignItems: "center" }}>
-                    <div>
-                      <p style={{ fontSize: 13, fontWeight: 600, color: "var(--ink-900)", marginBottom: 2 }}>{item.name}</p>
-                      <p style={{ fontSize: 12, color: "var(--ink-500)", margin: 0 }}>{item.type} · {item.city}</p>
-                    </div>
-                    <span style={{ fontSize: 12, color: "var(--lime-600)", fontWeight: 600 }}>{item.status}</span>
-                  </div>
-                ))}
-              </div>
+              ))}
             </div>
           </div>
 
