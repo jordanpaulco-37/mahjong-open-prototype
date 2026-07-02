@@ -136,7 +136,7 @@ export default function HomePage() {
             {/* Copy */}
             <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 24 }}>
               <p className="eyebrow">The Mahjong Open</p>
-              <h1 className="h1">
+              <h1 className="h1" style={{ fontSize: "clamp(32px, 4.2vw, 46px)" }}>
                 A city-based mahjong<br />
                 <em className="serif-italic">social league</em>
               </h1>
@@ -194,14 +194,14 @@ export default function HomePage() {
                 }}
               >
                 <Image
-                  src="/assets/hero.jpg"
+                  src="/hero.jpg"
                   alt="Friends playing mahjong together around a table"
                   fill
                   style={{ objectFit: "cover", objectPosition: "center" }}
                   priority
                   sizes="(max-width: 900px) 100vw, 50vw"
                 />
-                {/* Fallback shown until /assets/hero.jpg is added */}
+                {/* Fallback shown if /hero.jpg is missing */}
                 <div
                   style={{
                     position: "absolute",
@@ -226,7 +226,7 @@ export default function HomePage() {
         <div className="container-mo">
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p className="eyebrow" style={{ marginBottom: 12 }}>How it works</p>
-            <h2 className="h2">The league,{" "}<em className="serif-italic">explained</em></h2>
+            <h2 className="h2">The League,{" "}<em className="serif-italic">Explained</em></h2>
           </div>
           <div className={`format-grid ${formatVisible ? "in-view" : ""}`} ref={formatRef}>
             {FORMAT_STEPS.map((step, i) => {
@@ -290,9 +290,9 @@ export default function HomePage() {
         <div className="container-mo">
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <p className="eyebrow" style={{ marginBottom: 12 }}>Series schedule</p>
-            <h2 className="h2">The 2026 <em className="serif-italic">series schedule</em></h2>
+            <h2 className="h2">The 2026 <em className="serif-italic">Series Schedule</em></h2>
             <p className="body-lg" style={{ marginTop: 16, maxWidth: 560, marginInline: "auto" }}>
-              Each series runs eight weeks of open play. Here are the first two series of 2026 &mdash; register once and you&rsquo;re set for the whole run.
+              Each series runs eight weeks of open play. Here are the first two series of 2026 &mdash; register once and you&rsquo;re set for the whole&nbsp;run.
             </p>
           </div>
           <div className="schedule-grid">
@@ -393,7 +393,7 @@ export default function HomePage() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
         <div className="container-mo" style={{ maxWidth: 760 }}>
-          <h2 className="h2" style={{ marginBottom: 32 }}>
+          <h2 className="h2" style={{ marginBottom: 32, fontSize: "clamp(22px, 3vw, 30px)" }}>
             Your Mahjong Open Questions,{" "}
             <em className="serif-italic">Answered</em>
           </h2>
@@ -465,7 +465,7 @@ export default function HomePage() {
                 }}
               >
                 Ready to play?{" "}
-                <em style={{ color: "var(--lime-200)" }}>Save your spot.</em>
+                <em style={{ color: "var(--ink-900)" }}>Save your spot.</em>
               </h2>
               <p style={{ fontSize: 15, color: "rgba(234,242,242,0.8)", lineHeight: 1.6 }}>
                 Registration includes your full 8-week series, access to all city tables, and a spot on the leaderboard.
@@ -500,9 +500,9 @@ export default function HomePage() {
               </div>
 
               <button
-                className="btn btn-sage"
+                className="btn btn-navy"
                 onClick={() => setModalOpen(true)}
-                style={{ justifyContent: "center", fontSize: 15 }}
+                style={{ justifyContent: "center" }}
               >
                 Save my spot →
               </button>
@@ -565,12 +565,15 @@ export default function HomePage() {
           max-width: 760px;
           margin-inline: auto;
         }
-        .btn-sage {
-          background: var(--lime-600);
+        .btn-navy {
+          background: var(--ink-900);
           color: #fff;
+          border-radius: var(--radius-pill);
+          padding: 14px 32px;
+          font-size: 16px;
         }
-        .btn-sage:hover {
-          background: var(--lime-700);
+        .btn-navy:hover {
+          background: var(--ink-800);
         }
         .format-card {
           opacity: 0;
