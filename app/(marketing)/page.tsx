@@ -465,7 +465,7 @@ export default function HomePage() {
                 }}
               >
                 Ready to play?{" "}
-                <em style={{ color: "var(--ink-900)" }}>Save your spot.</em>
+                <em style={{ color: "var(--lime-200)" }}>Save your spot.</em>
               </h2>
               <p style={{ fontSize: 15, color: "rgba(234,242,242,0.8)", lineHeight: 1.6 }}>
                 Registration includes your full 8-week series, access to all city tables, and a spot on the leaderboard.
@@ -500,7 +500,7 @@ export default function HomePage() {
               </div>
 
               <button
-                className="btn btn-navy"
+                className="btn btn-sage"
                 onClick={() => setModalOpen(true)}
                 style={{ justifyContent: "center" }}
               >
@@ -565,15 +565,15 @@ export default function HomePage() {
           max-width: 760px;
           margin-inline: auto;
         }
-        .btn-navy {
-          background: var(--ink-900);
+        .btn-sage {
+          background: var(--lime-600);
           color: #fff;
           border-radius: var(--radius-pill);
           padding: 14px 32px;
           font-size: 16px;
         }
-        .btn-navy:hover {
-          background: var(--ink-800);
+        .btn-sage:hover {
+          background: var(--lime-700);
         }
         .format-card {
           opacity: 0;
