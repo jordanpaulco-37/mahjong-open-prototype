@@ -104,9 +104,9 @@ export default function HomePage() {
               {/* Stats */}
               <div style={{ display: "flex", gap: 32, flexWrap: "wrap", paddingTop: 8 }}>
                 {[
-                  { num: "$80", label: "Per series" },
                   { num: "8", label: "Weeks per series" },
                   { num: "5", label: "Series a year" },
+                  { num: "$80", label: "Per series" },
                 ].map((s) => (
                   <div key={s.label}>
                     <p
